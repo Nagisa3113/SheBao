@@ -24,6 +24,8 @@ public class KeyboardInput : InputHandle
         float hl;
         float vt;
 
+
+
         hl = Input.GetAxis("Horizontal");
         vt = Input.GetAxis("Vertical");
         Dir = new Vector2(hl, vt).normalized;
