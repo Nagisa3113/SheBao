@@ -5,20 +5,20 @@ public class Bullet : MonoBehaviour
 {
 
 
-    float speed;
-    float damage;
-    Vector3 dir;
+    protected float speed;
+    protected float damage;
+
 
     // Use this for initialization
     void Start()
     {
-        //transform.Rotate();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += dir * 0.1f;
+
     }
     
 

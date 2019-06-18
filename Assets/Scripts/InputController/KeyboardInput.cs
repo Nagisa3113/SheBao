@@ -55,7 +55,7 @@ public class KeyboardInput : InputHandle
 
     public override bool GetShoot()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             return true;
         }

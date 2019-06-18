@@ -42,6 +42,8 @@ public class PlayerController : Role
 
     void FixedUpdate()
     {
+        currentWeapon.Update();
+
         InputUpdate();
         PhysicsUpdate();
     }

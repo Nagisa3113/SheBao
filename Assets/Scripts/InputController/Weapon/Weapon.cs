@@ -24,18 +24,25 @@ public class Weapon
     protected int maxCapacity;
     protected int currentNum;
 
+    protected float coolDownTime;
+
 
     public Weapon()
     {
         //bullet = (GameObject)Resources.Load("Prefabs/", typeof(GameObject));
     }
 
-    public virtual void Shoot(Transform shootPos)
+    public virtual void Shoot(Transform transform)
     {
         //GameObject go = GameObject.Instantiate(bullet, shootPos);
         //go.transform.SetParent(GameObject.Find("Bullets").transform);
     }
 
+
+    public virtual void Update()
+    {
+
+    }
 
     public virtual void Upgrade()
     {

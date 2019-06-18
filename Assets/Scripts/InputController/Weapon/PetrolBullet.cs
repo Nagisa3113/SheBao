@@ -9,15 +9,20 @@ public class PetrolBullet : Bullet
     // Start is called before the first frame update
     void Start()
     {
+        speed = 20f;
+
         shootDir = GameObject.Find("Player").transform.up;
         transform.up = GameObject.Find("Player").transform.up;
+        Rigidbody2D rg = GetComponent<Rigidbody2D>();
+        rg.AddForce(transform.up * speed, ForceMode2D.Impulse);
         Destroy(gameObject, 4);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += shootDir * 0.1f;
+        //transform.position += transform.up * 0.1f;
     }
 
 
