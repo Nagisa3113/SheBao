@@ -28,6 +28,9 @@ public class Player : Role
 
     private void Start()
     {
+
+        InvokeRepeating("Shoot",1,0.5f);
+        //CancelInvoke();
     }
 
 
@@ -46,6 +49,14 @@ public class Player : Role
     }
 
 
+    public void Shoot()
+    {
+
+        Vector3 dir = transform.up;
+        Vector3 pos = GameObject.Find("DirArrow").transform.position;
+        currentWeapon.Shoot(dir, pos);
+    }
+
     void PhysicsUpdate()
     {
 
@@ -59,10 +70,8 @@ public class Player : Role
 
         if (shoot)
         {
-            Transform shootTrans = GameObject.Find("DirArrow").transform;
-            currentWeapon.Shoot(shootTrans);
+            Shoot();
         }
-
 
     }
 

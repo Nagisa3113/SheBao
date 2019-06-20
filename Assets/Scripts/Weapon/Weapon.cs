@@ -43,6 +43,13 @@ public class Weapon
         //go.transform.SetParent(GameObject.Find("Bullets").transform);
     }
 
+    public virtual void Shoot(Vector3 vector3,Vector3 v3)
+    {
+        //GameObject go = GameObject.Instantiate(bullet, shootPos);
+        //go.transform.SetParent(GameObject.Find("Bullets").transform);
+    }
+
+
     public virtual void Shoot()
     {
         //GameObject go = GameObject.Instantiate(bullet, shootPos);

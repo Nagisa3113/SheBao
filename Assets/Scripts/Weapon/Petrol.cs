@@ -36,7 +36,7 @@ public class Petrol : Weapon
     }
 
 
-    public override void Shoot(Transform shootTrans)
+    public override void Shoot(Vector3 shootDir,Vector3 shootPos)
     {
 
         if (currentNum > 0 & coolDownTime <= 0)
@@ -46,8 +46,10 @@ public class Petrol : Weapon
 
             GameObject go = pool.GetInstance();
 
-            go.transform.position = shootTrans.position;
-            go.transform.up = shootTrans.up;
+            Bullet t = go.GetComponent<Bullet>();
+
+            t.transform.position = shootPos;
+            t.Dir = shootDir;
 
             go.transform.SetParent(GameObject.Find("Bullets").transform);
 
