@@ -10,13 +10,18 @@ public enum WeaponType
     Gun,
 }
 
-
+[System.Serializable]
 public class Weapon
 {
+    [SerializeField]
+    protected Pool pool;
 
     protected GameObject bullet;
 
+    [SerializeField]
     protected float shootInterval;
+
+
     protected float reloadTime;
 
     protected int level;
@@ -37,6 +42,13 @@ public class Weapon
         //GameObject go = GameObject.Instantiate(bullet, shootPos);
         //go.transform.SetParent(GameObject.Find("Bullets").transform);
     }
+
+    public virtual void Shoot()
+    {
+        //GameObject go = GameObject.Instantiate(bullet, shootPos);
+        //go.transform.SetParent(GameObject.Find("Bullets").transform);
+    }
+
 
 
     public virtual void Update()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : Role
+public class Player : Role
 {
 
     [SerializeField]
@@ -10,20 +10,11 @@ public class PlayerController : Role
     List<Weapon> weaponList;
     Weapon currentWeapon;
 
-    [Header("Controller")]
-    //bool IsControlled = false;
-
     InputHandle inputHandle;
-
-
-    [SerializeField]
-    Vector3 t;
-
 
     public bool shoot;
 
     //public AnimationCurve moveCurve;
-
 
     private void Awake()
     {
@@ -51,7 +42,6 @@ public class PlayerController : Role
 
     public void Update()
     {
-        t = transform.up;
         SpriteUpdate();
     }
 
@@ -69,8 +59,8 @@ public class PlayerController : Role
 
         if (shoot)
         {
-            Transform shootPos = GameObject.Find("DirArrow").GetComponent<Transform>();
-            currentWeapon.Shoot(shootPos);
+            Transform shootTrans = GameObject.Find("DirArrow").transform;
+            currentWeapon.Shoot(shootTrans);
         }
 
 
@@ -98,7 +88,6 @@ public class PlayerController : Role
     {
 
     }
-
 
 
 }

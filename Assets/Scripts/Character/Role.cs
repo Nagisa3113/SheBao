@@ -6,13 +6,15 @@ public class Role : MonoBehaviour
 {
 
     [SerializeField]
-    [Header("CtrProp")]
     protected float moveSpeed;
+
     protected float drag;
+
     protected Vector2 moveDir;
 
     [SerializeField]
     protected Vector2 shootDir;
+
 
 
     // Start is called before the first frame update

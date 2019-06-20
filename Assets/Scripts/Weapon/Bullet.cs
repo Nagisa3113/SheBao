@@ -3,29 +3,27 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour
 {
-
-
+    [SerializeField]
     protected float speed;
+
+    [SerializeField]
     protected float damage;
 
-
-    // Use this for initialization
-    void Start()
+    protected Vector3 dir;
+    public Vector3 Dir
     {
-
+        set
+        {
+            dir = value;
+            transform.up = dir;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
-    
 
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log(collision.gameObject.name);
-        Destroy(gameObject);
     }
 
 

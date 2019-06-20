@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Petrol : Weapon
 {
+
+
+
+
+
     public Petrol()
     {
         bullet = (GameObject)Resources.Load("Prefabs/PetrolBullet", typeof(GameObject));
@@ -17,6 +22,8 @@ public class Petrol : Weapon
         currentNum = 50;
 
         coolDownTime = 0;
+
+        pool = GameObject.Find("PlayerPool").GetComponent<Pool>();
     }
 
 
@@ -29,13 +36,18 @@ public class Petrol : Weapon
     }
 
 
-    public override void Shoot(Transform transform)
+    public override void Shoot(Transform shootTrans)
     {
 
         if (currentNum > 0 & coolDownTime <= 0)
         {
-            GameObject go = GameObject.Instantiate(bullet, transform);
 
+            //GameObject go = GameObject.Instantiate(bullet);
+
+            GameObject go = pool.GetInstance();
+
+            go.transform.position = shootTrans.position;
+            go.transform.up = shootTrans.up;
 
             go.transform.SetParent(GameObject.Find("Bullets").transform);
 
