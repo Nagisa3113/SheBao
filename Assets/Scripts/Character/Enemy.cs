@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Role
 {
+
+    Slider slider;
 
     GameObject bullet;
 
     Vector3 shootPos;
-    Vector3 shootDir;
 
     [SerializeField]
     Pool pool;
@@ -16,11 +18,16 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        hpMax = hpCurrent = 10000;
+
+        slider = GetComponent<Slider>();
+
+        slider.value = hpCurrent / hpMax;
+
         bullet = (GameObject)Resources.Load("Prefabs/EnemyBullet", typeof(GameObject));
         pool = GameObject.Find("EnemyPool").GetComponent<Pool>();
 
         shootPos = transform.position;
-        shootDir = transform.up;
 
         StartCoroutine(FirRoundGroup());
 
@@ -30,6 +37,14 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        shootDir = transform.up;
+
+
+        hpMax--;
+        slider.value = hpCurrent / hpMax;
+
+
+
         if (Input.GetKeyDown(KeyCode.Z))
         {
             StartCoroutine(FireTurbine());

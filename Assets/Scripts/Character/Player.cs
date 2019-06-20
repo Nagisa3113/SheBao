@@ -5,11 +5,16 @@ using UnityEngine;
 public class Player : Role
 {
 
+
+    [SerializeField]
+    float shootCD=0.5f;
+
     [SerializeField]
     [Header("Weapon")]
     List<Weapon> weaponList;
     Weapon currentWeapon;
 
+    [SerializeField]
     InputHandle inputHandle;
 
     public bool shoot;
@@ -20,8 +25,6 @@ public class Player : Role
     {
         moveSpeed = 4f;
 
-        inputHandle = GameObject.Find("Input").GetComponent<PS4Input>();
-
         weaponList = new List<Weapon> { new Petrol() };
         currentWeapon = weaponList[0];
     }
@@ -29,7 +32,7 @@ public class Player : Role
     private void Start()
     {
 
-        InvokeRepeating("Shoot",1,0.1f);
+        InvokeRepeating("Shoot",1,shootCD);
         //CancelInvoke();
     }
 

@@ -15,6 +15,11 @@ public class Role : MonoBehaviour
     [SerializeField]
     protected Vector2 shootDir;
 
+    [SerializeField]
+    protected int hpMax;
+
+    [SerializeField]
+    protected int hpCurrent;
 
 
     // Start is called before the first frame update
