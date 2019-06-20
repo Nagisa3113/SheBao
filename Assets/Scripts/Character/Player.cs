@@ -18,9 +18,9 @@ public class Player : Role
 
     private void Awake()
     {
-        moveSpeed = 8f;
+        moveSpeed = 4f;
 
-        inputHandle = GameObject.Find("Input").GetComponent<KeyboardInput>();
+        inputHandle = GameObject.Find("Input").GetComponent<PS4Input>();
 
         weaponList = new List<Weapon> { new Petrol() };
         currentWeapon = weaponList[0];
@@ -29,7 +29,7 @@ public class Player : Role
     private void Start()
     {
 
-        InvokeRepeating("Shoot",1,0.5f);
+        InvokeRepeating("Shoot",1,0.1f);
         //CancelInvoke();
     }
 

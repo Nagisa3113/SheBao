@@ -126,7 +126,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2554368191111920270}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -165,7 +165,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.7266674
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -173,8 +173,8 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.3215561
-        value: 0.54098433
+        time: 0.3392563
+        value: 0.3343193
         inSlope: -1.8685995
         outSlope: -1.8685995
         tangentMode: 0

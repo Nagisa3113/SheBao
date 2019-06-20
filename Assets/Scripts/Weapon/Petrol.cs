@@ -39,7 +39,7 @@ public class Petrol : Weapon
     public override void Shoot(Vector3 shootDir,Vector3 shootPos)
     {
 
-        if (currentNum > 0 & coolDownTime <= 0)
+        //if (currentNum > 0 & coolDownTime <= 0)
         {
 
             //GameObject go = GameObject.Instantiate(bullet);
