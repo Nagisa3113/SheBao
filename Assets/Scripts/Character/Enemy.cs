@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Role
 {
 
     GameObject bullet;
 
+
     Vector3 shootPos;
-    Vector3 shootDir;
+    //Vector3 shootDir;
 
     [SerializeField]
     Pool pool;
@@ -18,6 +19,10 @@ public class Enemy : MonoBehaviour
     {
         bullet = (GameObject)Resources.Load("Prefabs/EnemyBullet", typeof(GameObject));
         pool = GameObject.Find("EnemyPool").GetComponent<Pool>();
+
+        hp = 5;
+        isAlive = true;
+        re = 0;
 
         shootPos = transform.position;
         shootDir = transform.up;

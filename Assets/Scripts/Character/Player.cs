@@ -20,6 +20,9 @@ public class Player : Role
     {
         moveSpeed = 8f;
 
+        hp = 20f;
+        isAlive = true;
+
         inputHandle = GameObject.Find("Input").GetComponent<KeyboardInput>();
 
         weaponList = new List<Weapon> { new Petrol() };
@@ -89,5 +92,12 @@ public class Player : Role
 
     }
 
+    void AliveUpdate()
+    {
+        if(hp <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
 }

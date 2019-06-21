@@ -12,10 +12,26 @@ public class Role : MonoBehaviour
 
     protected Vector2 moveDir;
 
+    protected float hp;
+    protected bool isAlive;
+    public float re;
+
     [SerializeField]
     protected Vector2 shootDir;
 
-
+    public void ApplyDamage(float damage)
+    {
+        if (damage < hp)
+        {
+            hp -= damage;
+        }
+        else
+        {
+            isAlive = false;
+            hp = 0;
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
