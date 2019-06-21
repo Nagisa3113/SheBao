@@ -25,7 +25,6 @@ public class KeyboardInput : InputHandle
         float vt;
 
 
-
         hl = Input.GetAxis("Horizontal");
         vt = Input.GetAxis("Vertical");
         Dir = new Vector2(hl, vt).normalized;
@@ -43,8 +42,8 @@ public class KeyboardInput : InputHandle
         float hl;
         float vt;
 
-        hl = Input.GetAxis("ShootHorizontal");
-        vt = Input.GetAxis("ShootVertical");
+        hl = Input.GetAxis("Horizontal");
+        vt = Input.GetAxis("Vertical");
         Dir = new Vector2(hl, vt).normalized;
 
         ShootDir = Dir * Mathf.Sqrt(hl * hl + vt * vt);
