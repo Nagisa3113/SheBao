@@ -8,7 +8,7 @@ public class PetrolBullet : Bullet
     // Start is called before the first frame update
     void Start()
     {
-        speed = 10f;
+        speed = 5f;
         dir = transform.up;
 
         //GetComponent<Rigidbody2D>().AddForce(dir * speed, ForceMode2D.Impulse);

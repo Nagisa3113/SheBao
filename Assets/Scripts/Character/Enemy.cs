@@ -85,7 +85,7 @@ public class Enemy : Role
     {
         Vector3 bulletDir;
         bulletDir = shootDir;
-        Quaternion rotateQuate = Quaternion.AngleAxis(10, Vector3.forward);//使用四元数制造绕Z轴旋转10度的旋转
+        Quaternion rotateQuate = Quaternion.AngleAxis(30, Vector3.forward);//使用四元数制造绕Z轴旋转10度的旋转
         for (int i = 0; i < number; i++)    //发射波数
         {
             for (int j = 0; j < 36; j++)
@@ -126,13 +126,13 @@ public class Enemy : Role
     IEnumerator FireTurbine()
     {
         Vector3 bulletDir = shootDir;      //发射方向
-        Quaternion rotateQuate = Quaternion.AngleAxis(20, Vector3.forward);//使用四元数制造绕Z轴旋转20度的旋转
+        Quaternion rotateQuate = Quaternion.AngleAxis(30, Vector3.forward);//使用四元数制造绕Z轴旋转20度的旋转
         float radius = 0.6f;        //生成半径
         float distance = 0.2f;      //每生成一次增加的距离
         for (int i = 0; i < 18; i++)
         {
             Vector3 firePoint = shootPos + bulletDir * radius;   //使用向量计算生成位置
-            StartCoroutine(FirRound(6, firePoint));     //在算好的位置生成一波圆形弹幕
+            StartCoroutine(FirRound(3, firePoint));     //在算好的位置生成一波圆形弹幕
             yield return new WaitForSeconds(0.05f);     //延时较小的时间（为了表现效果），计算下一步
             bulletDir = rotateQuate * bulletDir;        //发射方向改变
             radius += distance;     //生成半径增加

@@ -14,7 +14,7 @@ public class Petrol : Weapon
         bullet = (GameObject)Resources.Load("Prefabs/PetrolBullet", typeof(GameObject));
 
 
-        shootInterval = 0.5f;
+        shootInterval = 0.7f;
         reloadTime = 1f;
         level = 1;
 

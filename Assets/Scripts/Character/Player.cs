@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class Player : Role
 {
 
-
     public Slider slider;
 
     [SerializeField]
