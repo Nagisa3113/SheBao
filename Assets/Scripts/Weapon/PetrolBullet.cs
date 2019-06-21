@@ -10,7 +10,6 @@ public class PetrolBullet : Bullet
     {
         speed = 10f;
         dir = transform.up;
-        damage = 2;
 
         //GetComponent<Rigidbody2D>().AddForce(dir * speed, ForceMode2D.Impulse);
         //Destroy(gameObject, 4);
@@ -25,7 +24,7 @@ public class PetrolBullet : Bullet
     }
 
 
-    public  void OnCollisionEnter2D(Collision2D collision)
+    public override void OnCollisionEnter2D(Collision2D collision)
     {
 
         //base.OnCollisionEnter2D(collision);
@@ -33,17 +32,6 @@ public class PetrolBullet : Bullet
         //Destroy(gameObject);
         GameObject.Find("PlayerPool").GetComponent<Pool>().ReturnInstance(this.gameObject);
 
-        switch(collision.collider.tag)
-        {
-            case "Enemy":
-                Role r = collision.collider.GetComponent<Role>();
-                r.re++;
-                if (r != null)
-                    r.ApplyDamage(damage);
-                Debug.Log(r.re);
-                break;
-        }
-   
     }
 
 
