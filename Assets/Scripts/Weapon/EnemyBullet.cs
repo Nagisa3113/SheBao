@@ -28,7 +28,10 @@ public class EnemyBullet : Bullet
     public override void OnCollisionEnter2D(Collision2D collision)
     {
         //base.OnCollisionEnter2D(collision);
-
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<Role>().HP -= 5;
+        }
 
         //use pool
         GameObject.Find("EnemyPool").GetComponent<Pool>().ReturnInstance(this.gameObject);

@@ -144,6 +144,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0
   shootDir: {x: 0, y: 0}
+  hpMax: 0
+  hpCurrent: 0
+  slider: {fileID: 0}
+  shootCD: 0.5
+  weaponList: []
+  inputHandle: {fileID: 0}
   shoot: 0
 --- !u!1 &7714133705904570574
 GameObject:

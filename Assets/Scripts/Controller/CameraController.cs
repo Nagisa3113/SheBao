@@ -5,7 +5,6 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
 
-
     Transform target;
     Vector3 offset;
     Vector3 cameraVelocity = Vector3.zero;

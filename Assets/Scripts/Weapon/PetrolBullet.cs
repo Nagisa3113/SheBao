@@ -29,6 +29,12 @@ public class PetrolBullet : Bullet
 
         //base.OnCollisionEnter2D(collision);
 
+        if (collision.gameObject.tag == "Enemy")
+        {
+            collision.gameObject.GetComponent<Role>().HP-=5;
+        }
+
+
         //Destroy(gameObject);
         GameObject.Find("PlayerPool").GetComponent<Pool>().ReturnInstance(this.gameObject);
 

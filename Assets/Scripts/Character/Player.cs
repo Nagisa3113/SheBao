@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : Role
 {
 
 
+    public Slider slider;
+
     [SerializeField]
-    float shootCD=0.5f;
+    float shootCD = 0.5f;
 
     [SerializeField]
     [Header("Weapon")]
@@ -23,6 +26,12 @@ public class Player : Role
 
     private void Awake()
     {
+
+
+        slider = GetComponentInChildren<Slider>();
+
+        hpCurrent = hpMax = 50;
+
         moveSpeed = 4f;
 
         weaponList = new List<Weapon> { new Petrol() };
@@ -32,7 +41,7 @@ public class Player : Role
     private void Start()
     {
 
-        InvokeRepeating("Shoot",1,shootCD);
+        InvokeRepeating("Shoot", 1, shootCD);
         //CancelInvoke();
     }
 
@@ -98,7 +107,7 @@ public class Player : Role
 
     void SpriteUpdate()
     {
-
+        //slider.value = hpCurrent / hpMax;
     }
 
 

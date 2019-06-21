@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class Enemy : Role
 {
-
-    Slider slider;
+    [Header("UI")]
+    public Slider slider;
 
     GameObject bullet;
 
@@ -15,23 +15,36 @@ public class Enemy : Role
     [SerializeField]
     Pool pool;
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
-        hpMax = hpCurrent = 10000;
-
-        slider = GetComponent<Slider>();
-
-        slider.value = hpCurrent / hpMax;
-
         bullet = (GameObject)Resources.Load("Prefabs/EnemyBullet", typeof(GameObject));
         pool = GameObject.Find("EnemyPool").GetComponent<Pool>();
 
+        slider.value = 1;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        hpMax = hpCurrent = 100;
+
+
         shootPos = transform.position;
 
-        StartCoroutine(FirRoundGroup());
+        //StartCoroutine(FirRoundGroup());
 
         //StartCoroutine(FireTurbine());
+    }
+
+
+    public void DoFirRoundGroup()
+    {
+        StartCoroutine(FirRoundGroup());
+    }
+    public void DoFireTurbine()
+    {
+        StartCoroutine(FireTurbine());
     }
 
     // Update is called once per frame
@@ -39,11 +52,7 @@ public class Enemy : Role
     {
         shootDir = transform.up;
 
-
-        hpMax--;
         slider.value = hpCurrent / hpMax;
-
-
 
         if (Input.GetKeyDown(KeyCode.Z))
         {

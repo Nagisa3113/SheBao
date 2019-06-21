@@ -16,10 +16,21 @@ public class Role : MonoBehaviour
     protected Vector2 shootDir;
 
     [SerializeField]
-    protected int hpMax;
+    protected float hpMax;
 
     [SerializeField]
-    protected int hpCurrent;
+    protected float hpCurrent;
+    public float HP
+    {
+        get
+        {
+            return hpCurrent;
+        }
+        set
+        {
+            hpCurrent = value;
+        }
+    }
 
 
     // Start is called before the first frame update
