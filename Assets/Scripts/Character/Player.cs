@@ -13,14 +13,14 @@ public class Player : Role
     [SerializeField]
     float shootCD = 0.5f;
 
-    public InputHandle inputHandle;
-
-    public bool shoot;
+    InputHandle inputHandle;
 
     //public AnimationCurve moveCurve;
 
     private void Awake()
     {
+        inputHandle = InputHandle.Instance;
+    
         bullet = (GameObject)Resources.Load("Prefabs/PlayerBullet", typeof(GameObject));
 
         pool = GameObject.Find("Pool").GetComponent<Pool>();
@@ -58,6 +58,7 @@ public class Player : Role
         Vector3 pos = GameObject.Find("DirArrow").transform.position;
 
         Bullet.InitBullet(bullet, pos, dir);
+
         GetComponent<AudioSource>().Play();
     }
 
@@ -82,7 +83,6 @@ public class Player : Role
 
         moveDir = inputHandle.GetMoveDir();
         shootDir = inputHandle.GetShootDir();
-        shoot = inputHandle.GetShoot();
     }
 
 

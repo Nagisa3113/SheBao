@@ -12,4 +12,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f48d75dd20ebe49fb87eae49f5f60b8f, type: 3}
   m_Name: GameController
   m_EditorClassIdentifier: 
-  inputHandle: {fileID: 0}

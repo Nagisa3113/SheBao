@@ -20,6 +20,7 @@ public class Enemy : Role
     bool isShaking;
 
     public float shakeScale = 0.04f;
+    public float freq = 1;
 
     private void Awake()
     {
@@ -150,7 +151,7 @@ public class Enemy : Role
             float x = shakeScale * Random.Range(-1, 1f);
             float y = shakeScale * Random.Range(-1, 1f);
 
-            Vector3 randShake = new Vector3(x, y, 0f);
+            Vector3 randShake = new Vector3(Mathf.PerlinNoise(Time.time * freq, 0) * shakeScale, Mathf.PerlinNoise(Time.time * freq,0) * shakeScale, 0f);
 
 
             transform.position += randShake;
@@ -167,7 +168,7 @@ public class Enemy : Role
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.layer== LayerMask.NameToLayer("PlayerBullet"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerBullet"))
         {
             HP -= 5;
             if (!isShaking)
