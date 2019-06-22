@@ -5,19 +5,15 @@ using UnityEngine.UI;
 
 public class Player : Role
 {
+    public GameObject bullet;
+    public Pool pool;
 
     public Slider slider;
 
     [SerializeField]
     float shootCD = 0.5f;
 
-    [SerializeField]
-    [Header("Weapon")]
-    List<Weapon> weaponList;
-    Weapon currentWeapon;
-
-    [SerializeField]
-    InputHandle inputHandle;
+    public InputHandle inputHandle;
 
     public bool shoot;
 
@@ -25,30 +21,25 @@ public class Player : Role
 
     private void Awake()
     {
+        bullet = (GameObject)Resources.Load("Prefabs/PlayerBullet", typeof(GameObject));
 
+        pool = GameObject.Find("Pool").GetComponent<Pool>();
 
         slider = GetComponentInChildren<Slider>();
 
         hpCurrent = hpMax = 50;
-
-        moveSpeed = 4f;
-
-        weaponList = new List<Weapon> { new Petrol() };
-        currentWeapon = weaponList[0];
     }
 
     private void Start()
     {
 
-        InvokeRepeating("Shoot", 1, shootCD);
+        InvokeRepeating("Shoot", 0, shootCD);
         //CancelInvoke();
     }
 
 
     void FixedUpdate()
     {
-        currentWeapon.Update();
-
         InputUpdate();
         PhysicsUpdate();
     }
@@ -65,25 +56,19 @@ public class Player : Role
 
         Vector3 dir = transform.up;
         Vector3 pos = GameObject.Find("DirArrow").transform.position;
-        currentWeapon.Shoot(dir, pos);
+
+        Bullet.InitBullet(bullet, pos, dir);
+        GetComponent<AudioSource>().Play();
     }
 
     void PhysicsUpdate()
     {
-
         GetComponent<Rigidbody2D>().velocity = moveDir * moveSpeed;
-
 
         if (shootDir != Vector2.zero)
         {
             gameObject.transform.up = shootDir;
         }
-
-        if (shoot)
-        {
-            Shoot();
-        }
-
     }
 
 
@@ -96,11 +81,8 @@ public class Player : Role
         }
 
         moveDir = inputHandle.GetMoveDir();
-
         shootDir = inputHandle.GetShootDir();
-
         shoot = inputHandle.GetShoot();
-
     }
 
 

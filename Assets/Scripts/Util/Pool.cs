@@ -1,46 +1,118 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix;
+using Sirenix.OdinInspector;
 
-public class Pool : MonoBehaviour
+public class Pool : SerializedMonoBehaviour
 {
+    GameObject CachePanel;
 
     [SerializeField]
-    private GameObject _prefab;
+     Dictionary<string, Queue<GameObject>> m_Pool = new Dictionary<string, Queue<GameObject>>();
 
-    [SerializeField]
-    private Queue<GameObject> _pooledInstanceQueue = new Queue<GameObject>();
+    [SerializeField]Dictionary<GameObject, string> m_GoTag = new Dictionary<GameObject, string>();
 
 
-    public GameObject GetInstance()
+    /// <summary>
+    /// 清空缓存池，释放所有引用
+    /// </summary>
+    public void ClearCachePool()
     {
-        if (_pooledInstanceQueue.Count > 0)
+        m_Pool.Clear();
+        m_GoTag.Clear();
+    }
+
+    /// <summary>
+    /// 回收GameObject
+    /// </summary>
+    public void ReturnCacheGameObejct(GameObject go)
+    {
+        if (CachePanel == null)
         {
-            GameObject instanceToReuse = _pooledInstanceQueue.Dequeue();
-            instanceToReuse.SetActive(true);
-            return instanceToReuse;
+            CachePanel = new GameObject();
+            CachePanel.name = "CachePanel";
+            GameObject.DontDestroyOnLoad(CachePanel);
         }
 
-        return Instantiate(_prefab);
+        if (go == null)
+        {
+            return;
+        }
+
+        go.transform.parent = CachePanel.transform;
+        go.SetActive(false);
+
+        if (m_GoTag.ContainsKey(go))
+        {
+            string tag = m_GoTag[go];
+            RemoveOutMark(go);
+
+            if (!m_Pool.ContainsKey(tag))
+            {
+                m_Pool[tag] = new Queue<GameObject>();
+            }
+
+            m_Pool[tag].Enqueue(go);
+        }
     }
 
-    public void ReturnInstance(GameObject gameObjectToPool)
+    /// <summary>
+    /// 请求GameObject
+    /// </summary>
+    public GameObject RequestCacheGameObejct(GameObject prefab)
     {
-        _pooledInstanceQueue.Enqueue(gameObjectToPool);
-        gameObjectToPool.SetActive(false);
-        gameObjectToPool.transform.SetParent(gameObject.transform);
+        string tag = prefab.GetInstanceID().ToString();
+        GameObject go = GetFromPool(tag);
+        if (go == null)
+        {
+            go = GameObject.Instantiate<GameObject>(prefab);
+            go.name = prefab.name + Time.time;
+        }
+
+
+        MarkAsOut(go, tag);
+        return go;
     }
 
 
-    // Start is called before the first frame update
-    void Start()
+    private GameObject GetFromPool(string tag)
     {
-        
+        if (m_Pool.ContainsKey(tag) && m_Pool[tag].Count > 0)
+        {
+            GameObject obj = m_Pool[tag].Dequeue();
+            obj.SetActive(true);
+            return obj;
+        }
+        else
+        {
+            return null;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void MarkAsOut(GameObject go, string tag)
     {
-        
+        m_GoTag.Add(go, tag);
     }
+
+    private void RemoveOutMark(GameObject go)
+    {
+        if (m_GoTag.ContainsKey(go))
+        {
+            m_GoTag.Remove(go);
+        }
+        else
+        {
+            Debug.LogError("remove out mark error, gameObject has not been marked");
+        }
+    }
+
+
+
+
+
+
+
 }
+

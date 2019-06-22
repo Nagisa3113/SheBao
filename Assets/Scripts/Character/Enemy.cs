@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,13 +16,18 @@ public class Enemy : Role
     [SerializeField]
     Pool pool;
 
+    [SerializeField]
+    bool isShaking;
+
+    public float shakeScale = 0.04f;
 
     private void Awake()
     {
         bullet = (GameObject)Resources.Load("Prefabs/EnemyBullet", typeof(GameObject));
-        pool = GameObject.Find("EnemyPool").GetComponent<Pool>();
+        pool = GameObject.Find("Pool").GetComponent<Pool>();
 
         slider.value = 1;
+        shakeScale = 0.06f;
     }
 
     // Start is called before the first frame update
@@ -29,12 +35,13 @@ public class Enemy : Role
     {
         hpMax = hpCurrent = 100;
 
+        EnemySpwan enemySpwan = AssetDatabase.LoadAssetAtPath<EnemySpwan>("Assets/EnemySpawn.asset");
+
+        Vector3 assetPos = new Vector3(enemySpwan.spawns[enemySpwan.index].pos.x, enemySpwan.spawns[enemySpwan.index].pos.y, 0);
+        enemySpwan.index++;
+        transform.position = assetPos;
 
         shootPos = transform.position;
-
-        //StartCoroutine(FirRoundGroup());
-
-        //StartCoroutine(FireTurbine());
     }
 
 
@@ -65,18 +72,11 @@ public class Enemy : Role
         }
     }
 
-
+    #region shoot
     EnemyBullet CreateBullet(Vector3 bulletDir, Vector3 createPoint)
     {
-        //GameObject go = Instantiate<GameObject>(bullet);
-
-        GameObject go = pool.GetInstance();
-        Bullet t = go.GetComponent<Bullet>();
-
-        t.Dir = bulletDir;
-        t.transform.position = createPoint;
-
-        go.transform.SetParent(GameObject.Find("EnemyBullets").transform);
+        //GameObject go = Instantiate<GameObject>(bullet);pool.GetInstance().GetComponent<Bullet>();
+        GameObject go = Bullet.InitBullet(bullet, createPoint, bulletDir);
 
         return go.GetComponent<EnemyBullet>();
     }
@@ -88,7 +88,7 @@ public class Enemy : Role
         Quaternion rotateQuate = Quaternion.AngleAxis(30, Vector3.forward);//使用四元数制造绕Z轴旋转10度的旋转
         for (int i = 0; i < number; i++)    //发射波数
         {
-            for (int j = 0; j < 36; j++)
+            for (int j = 0; j < 12; j++)
             {
                 CreateBullet(bulletDir, createPoint);   //生成子弹
                 bulletDir = rotateQuate * bulletDir; //让发射方向旋转10度，到达下一个发射方向
@@ -129,17 +129,54 @@ public class Enemy : Role
         Quaternion rotateQuate = Quaternion.AngleAxis(30, Vector3.forward);//使用四元数制造绕Z轴旋转20度的旋转
         float radius = 0.6f;        //生成半径
         float distance = 0.2f;      //每生成一次增加的距离
-        for (int i = 0; i < 18; i++)
+        for (int i = 0; i < 12; i++)
         {
             Vector3 firePoint = shootPos + bulletDir * radius;   //使用向量计算生成位置
-            StartCoroutine(FirRound(3, firePoint));     //在算好的位置生成一波圆形弹幕
+            StartCoroutine(FirRound(2, firePoint));     //在算好的位置生成一波圆形弹幕
             yield return new WaitForSeconds(0.05f);     //延时较小的时间（为了表现效果），计算下一步
             bulletDir = rotateQuate * bulletDir;        //发射方向改变
             radius += distance;     //生成半径增加
         }
     }
+    #endregion
+
+    IEnumerator StartShake()
+    {
+        isShaking = true;
+        Vector3 pos = transform.position;
+
+        for (int i = 0; i < 14; i++)
+        {
+            float x = shakeScale * Random.Range(-1, 1f);
+            float y = shakeScale * Random.Range(-1, 1f);
+
+            Vector3 randShake = new Vector3(x, y, 0f);
 
 
+            transform.position += randShake;
+            yield return 0;
+        }
+
+        transform.position = pos;
+
+        isShaking = false;
+    }
+
+
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.layer== LayerMask.NameToLayer("PlayerBullet"))
+        {
+            HP -= 5;
+            if (!isShaking)
+            {
+                StartCoroutine(StartShake());
+            }
+            GetComponent<AudioSource>().Play();
+        }
+    }
 
 
 

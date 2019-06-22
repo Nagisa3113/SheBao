@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,6 +15,19 @@ public class Editer : EditorWindow
         EditorWindow window = EditorWindow.GetWindow(typeof(Editer));
         window.Show();
     }
+
+
+
+
+    [MenuItem("ScriptableObject/CreateEnemySpawn")]
+    static void CreateEnemySpawn()
+    {
+        EnemySpwan enemySpwan = ScriptableObject.CreateInstance<EnemySpwan>();
+
+        AssetDatabase.CreateAsset(enemySpwan, "Assets/EnemySpawn.asset");
+        AssetDatabase.SaveAssets();
+    }
+
 
     private string audioName;
     private string audioPath;
@@ -99,32 +114,32 @@ public class Editer : EditorWindow
 
 
 
-    //private void SaveAudioList()
-    //{
-    //    StringBuilder sb = new StringBuilder();
+    private void SaveAudioList()
+    {
+        StringBuilder sb = new StringBuilder();
 
-    //    foreach (string key in audioDict.Keys)
-    //    {
-    //        string value;
-    //        audioDict.TryGetValue(key, out value);
-    //        sb.Append(key + "," + value + "\n");
-    //    }
+        foreach (string key in audioDict.Keys)
+        {
+            string value;
+            audioDict.TryGetValue(key, out value);
+            sb.Append(key + "," + value + "\n");
+        }
 
-    //    File.WriteAllText(AudioManager.AudioTextPath, sb.ToString());
-    //    //File.AppendAllText(savePath, sb.ToString());
-    //}
-    //private void LoadAudioList()
-    //{
-    //    audioDict = new Dictionary<string, string>();
-    //    if (File.Exists(AudioManager.AudioTextPath) == false) return;
-    //    string[] lines = File.ReadAllLines(AudioManager.AudioTextPath);
-    //    foreach (string line in lines)
-    //    {
-    //        if (string.IsNullOrEmpty(line)) continue;
-    //        string[] keyvalue = line.Split(',');
-    //        audioDict.Add(keyvalue[0], keyvalue[1]);
-    //    }
-    //}
+        File.WriteAllText(AudioManager.AudioTextPath, sb.ToString());
+        //File.AppendAllText(savePath, sb.ToString());
+    }
+    private void LoadAudioList()
+    {
+        audioDict = new Dictionary<string, string>();
+        if (File.Exists(AudioManager.AudioTextPath) == false) return;
+        string[] lines = File.ReadAllLines(AudioManager.AudioTextPath);
+        foreach (string line in lines)
+        {
+            if (string.IsNullOrEmpty(line)) continue;
+            string[] keyvalue = line.Split(',');
+            audioDict.Add(keyvalue[0], keyvalue[1]);
+        }
+    }
 }
 
 public class AudioManager
