@@ -12,9 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71cc382ca98ac490bbbcafac5cd17c31, type: 3}
   m_Name: EnemySpawn
   m_EditorClassIdentifier: 
+  enemys:
+  - {fileID: 1645477286282951562, guid: 3e571cbecdc884030b43d4994ff6fefd, type: 3}
+  - {fileID: 1645477286282951562, guid: 3e571cbecdc884030b43d4994ff6fefd, type: 3}
   spawns:
   - pos: {x: 5, y: 5}
     dir: {x: 1, y: 0}
-    speed: 0.1
-    type: 1
+    speed: 0
+    type: 0
+  - pos: {x: -5, y: -5}
+    dir: {x: 0, y: 1}
+    speed: 0
+    type: 0
   index: 0

@@ -5,6 +5,7 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class Editer : EditorWindow
 {
     [MenuItem("Manager/Manager")]
@@ -15,7 +16,6 @@ public class Editer : EditorWindow
         EditorWindow window = EditorWindow.GetWindow(typeof(Editer));
         window.Show();
     }
-
 
 
 
@@ -99,6 +99,12 @@ public class Editer : EditorWindow
         {
             Enemy enemy = GameObject.Find("Enemy").GetComponent<Enemy>();
             enemy.DoFireTurbine();
+        }
+
+
+        if (GUILayout.Button("生成敌人"))
+        {
+            EnemyController.Instance.InitEnemy();
         }
 
 

@@ -10,7 +10,6 @@ public class PlayerBullet : Bullet
     {
         //GetComponent<Rigidbody2D>().AddForce(dir * speed, ForceMode2D.Impulse);
         //Destroy(gameObject, 4);
-
     }
 
     // Update is called once per frame

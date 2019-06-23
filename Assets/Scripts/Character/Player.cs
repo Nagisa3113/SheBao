@@ -59,7 +59,7 @@ public class Player : Role
 
         Bullet.InitBullet(bullet, pos, dir);
 
-        GetComponent<AudioSource>().Play();
+        //GetComponent<AudioSource>().Play();
     }
 
     void PhysicsUpdate()

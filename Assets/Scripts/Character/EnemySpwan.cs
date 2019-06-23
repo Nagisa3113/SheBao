@@ -5,6 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "MyAsset/EnemySpwan")]
 public class EnemySpwan : ScriptableObject
 {
+
+
+    public GameObject[] enemys;
+
     public List<Spawn> spawns = new List<Spawn>();
 
     public int index;
