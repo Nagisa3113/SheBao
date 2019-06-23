@@ -124,8 +124,6 @@ MonoBehaviour:
   pool: {fileID: 0}
   slider: {fileID: 0}
   shootCD: 0.5
-  inputHandle: {fileID: 0}
-  shoot: 0
 --- !u!68 &5543098419486131141
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -172,7 +170,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7714133705904570574}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.65, z: 0}
+  m_LocalPosition: {x: 0, y: 5.1, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 7714133704738929039}

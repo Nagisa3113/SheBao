@@ -6,28 +6,16 @@ using UnityEditor;
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class Editer : EditorWindow
+public class AudioEditer : EditorWindow
 {
-    [MenuItem("Manager/Manager")]
+    [MenuItem("Editor/AudioEditer")]
     static void CreateWindow()
     {
         //Rect rect = new Rect(400, 400, 300, 400);
         //AudioWindowEditor window = EditorWindow.GetWindowWithRect(typeof(AudioWindowEditor), rect) as AudioWindowEditor;
-        EditorWindow window = EditorWindow.GetWindow(typeof(Editer));
+        EditorWindow window = EditorWindow.GetWindow(typeof(AudioEditer));
         window.Show();
     }
-
-
-
-    [MenuItem("ScriptableObject/CreateEnemySpawn")]
-    static void CreateEnemySpawn()
-    {
-        EnemySpwan enemySpwan = ScriptableObject.CreateInstance<EnemySpwan>();
-
-        AssetDatabase.CreateAsset(enemySpwan, "Assets/EnemySpawn.asset");
-        AssetDatabase.SaveAssets();
-    }
-
 
     private string audioName;
     private string audioPath;
@@ -42,6 +30,8 @@ public class Editer : EditorWindow
     }
     void OnGUI()
     {
+
+
         //EditorGUILayout.TextField("输入文字1", text);
         //GUILayout.TextField("输入文字2");
         GUILayout.BeginHorizontal();
@@ -87,24 +77,6 @@ public class Editer : EditorWindow
                     //SaveAudioList();
                 }
             }
-        }
-
-
-        if (GUILayout.Button("敌人释放圆形弹幕"))
-        {
-            Enemy enemy = GameObject.Find("Enemy").GetComponent<Enemy>();
-            enemy.DoFirRoundGroup();
-        }
-        if (GUILayout.Button("敌人释放涡轮弹幕"))
-        {
-            Enemy enemy = GameObject.Find("Enemy").GetComponent<Enemy>();
-            enemy.DoFireTurbine();
-        }
-
-
-        if (GUILayout.Button("生成敌人"))
-        {
-            EnemyController.Instance.InitEnemy();
         }
 
 

@@ -2,8 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum EnemyBulletType
+{
+    Yellow,
+    Red,
+}
+
 public class EnemyBullet : Bullet
 {
+    public EnemyBulletType bulletType;
 
     // Start is called before the first frame update
     void Start()
