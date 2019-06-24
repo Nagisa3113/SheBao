@@ -12,23 +12,18 @@ public class BulletController : Singleton<BulletController>
 
     public BulletController()
     {
-
-    }
-
-
-
-    public void Init()
-    {
         enemy = GameObject.Find("Enemy");
         bullet_red = Resources.Load<GameObject>("Prefabs/EnemyBullet_Red");
         bullet_yellow = Resources.Load<GameObject>("Prefabs/EnemyBullet_Yellow");
         shootDir = enemy.transform.up;
     }
 
+
     public void StartShoot(IEnumerator enumerator)
     {
         enemy.GetComponent<Enemy>().StartCoroutine(enumerator);
     }
+
 
 
     EnemyBullet CreateBullet(EnemyBulletType bulletType, Vector3 pos, Vector3 dir)
@@ -47,8 +42,11 @@ public class BulletController : Singleton<BulletController>
 
     }
 
-
-
+    /// <summary>
+    /// 按页面分类取轮播列表;
+    /// </summary>
+    /// <param name="pos">生成位置</param>
+    /// <param name="rotation">旋转角度</param>
     IEnumerator FirRound(Vector3 pos, int number, int rotation)
     {
         Vector3 dir = shootDir;
@@ -84,8 +82,6 @@ public class BulletController : Singleton<BulletController>
             bullets[i].GetComponent<Rigidbody2D>().velocity = Vector2.zero; //弹幕停止移动
             StartShoot(FirRound(bullets[i].transform.position, num, 45));//通过之前弹幕的位置，生成多波多方向的圆形弹幕。这里调用了上面写过的圆形弹幕函数
         }
-
-
     }
 
 
@@ -104,5 +100,14 @@ public class BulletController : Singleton<BulletController>
             radius += distance;     //生成半径增加
         }
     }
+
+
+
+
+
+
+
+
+
 
 }
