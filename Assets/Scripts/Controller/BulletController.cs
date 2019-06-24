@@ -43,7 +43,7 @@ public class BulletController : Singleton<BulletController>
     }
 
     /// <summary>
-    /// 按页面分类取轮播列表;
+    /// 向四周发射
     /// </summary>
     /// <param name="pos">生成位置</param>
     /// <param name="rotation">旋转角度</param>

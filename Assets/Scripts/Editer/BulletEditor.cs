@@ -33,6 +33,13 @@ public class BulletEditor : EditorWindow
         GUILayout.Label("弹幕编辑");
         GUI.skin.label.fontSize = 10;
 
+        if (GUILayout.Button("读取"))
+        {
+            BulletSpawn bulletSpawn = AssetDatabase.LoadAssetAtPath<BulletSpawn>("Assets/BUlletSpawn.asset");
+            bs = bulletSpawn.bulletstructs;
+        }
+
+
         if (GUILayout.Button("保存"))
         {
             BulletSpawn bulletSpawn = AssetDatabase.LoadAssetAtPath<BulletSpawn>("Assets/BUlletSpawn.asset");
