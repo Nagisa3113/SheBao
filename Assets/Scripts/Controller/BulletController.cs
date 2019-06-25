@@ -10,6 +10,7 @@ public class BulletController : Singleton<BulletController>
     GameObject bullet_red;
     Vector3 shootDir;
 
+
     public BulletController()
     {
         enemy = GameObject.Find("Enemy");
@@ -23,7 +24,6 @@ public class BulletController : Singleton<BulletController>
     {
         enemy.GetComponent<Enemy>().StartCoroutine(enumerator);
     }
-
 
 
     EnemyBullet CreateBullet(EnemyBulletType bulletType, Vector3 pos, Vector3 dir)

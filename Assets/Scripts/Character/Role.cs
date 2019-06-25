@@ -8,8 +8,6 @@ public class Role : MonoBehaviour
     [SerializeField]
     protected float moveSpeed;
 
-    protected float drag;
-
     protected Vector2 moveDir;
 
     [SerializeField]
@@ -32,16 +30,4 @@ public class Role : MonoBehaviour
         }
     }
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

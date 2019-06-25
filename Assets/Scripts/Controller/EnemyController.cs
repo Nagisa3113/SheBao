@@ -12,10 +12,8 @@ public class EnemyController : Singleton<EnemyController>
 
     public EnemyController()
     {
-        EnemySpwan enemySpwan = AssetDatabase.LoadAssetAtPath<EnemySpwan>("Assets/EnemySpawn.asset");
 
     }
-
 
 
     public void InitEnemy()

@@ -5,35 +5,28 @@ using UnityEngine.UI;
 
 public class Player : Role
 {
-    public GameObject bullet;
-    public Pool pool;
+    GameObject bullet;
 
-    public Slider slider;
-
-    [SerializeField]
-    float shootCD = 0.5f;
+    public float shootCD = 0.1f;
 
     InputHandle inputHandle;
 
-    //public AnimationCurve moveCurve;
+
+    public float shootPosOffset = 3f;
+
 
     private void Awake()
     {
         inputHandle = InputHandle.Instance;
-    
+
         bullet = (GameObject)Resources.Load("Prefabs/PlayerBullet", typeof(GameObject));
 
-        pool = GameObject.Find("Pool").GetComponent<Pool>();
-
-        slider = GetComponentInChildren<Slider>();
-
-        hpCurrent = hpMax = 50;
+        hpCurrent = hpMax = 3;
     }
 
     private void Start()
     {
-
-        InvokeRepeating("Shoot", 0, shootCD);
+        InvokeRepeating("Shoot", 1, shootCD);
         //CancelInvoke();
     }
 
@@ -53,13 +46,15 @@ public class Player : Role
 
     public void Shoot()
     {
-
         Vector3 dir = transform.up;
-        Vector3 pos = GameObject.Find("DirArrow").transform.position;
+        Vector3 pos = gameObject.transform.position + dir.normalized * shootPosOffset;
 
         Bullet.InitBullet(bullet, pos, dir);
 
-        //GetComponent<AudioSource>().Play();
+
+        {
+            GetComponent<AudioSource>().Play();
+        }
     }
 
     void PhysicsUpdate()
@@ -73,12 +68,24 @@ public class Player : Role
     }
 
 
+    void AudioUpdate()
+    {
+
+    }
+
+
     void InputUpdate()
     {
         if (inputHandle == null)
         {
             Debug.Log("No Input Device!");
             return;
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            GetDamage();
         }
 
         moveDir = inputHandle.GetMoveDir();
@@ -88,8 +95,26 @@ public class Player : Role
 
     void SpriteUpdate()
     {
-        //slider.value = hpCurrent / hpMax;
+
     }
+
+    public void GetDamage()
+    {
+        hpCurrent--;
+        switch (hpCurrent)
+        {
+            case 2:
+                GameObject.Find("playerright").SetActive(false);
+                break;
+            case 1:
+                GameObject.Find("playerleft").SetActive(false);
+                break;
+            case 0:
+                break;
+
+        }
+    }
+
 
 
 }

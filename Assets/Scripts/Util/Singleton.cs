@@ -12,8 +12,6 @@ public class Singleton<T> where T : new()
         {
             if (instance == null)
             {
-                Debug.Log("COnstsrat");
-
                 instance = new T();
             }
 

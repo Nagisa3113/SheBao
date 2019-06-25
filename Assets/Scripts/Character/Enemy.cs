@@ -6,41 +6,58 @@ using UnityEngine.UI;
 
 public class Enemy : Role
 {
-    [Header("UI")]
-    public Slider slider;
 
     GameObject bullet;
 
     Vector3 shootPos;
 
-    [SerializeField]
-    Pool pool;
-
-    [SerializeField]
     bool isShaking;
+
+    public AudioClip[] audioClips;
+
+    bool alive;
 
     public float shakeScale = 0.3f;
     public float freq = 1;
 
+    public GameObject particleHit;
+    public GameObject particleDie;
+
+    int shakeDelta = 14;
+
+    public Text text;
+
     private void Awake()
     {
+        hpCurrent = hpMax = 20;
         bullet = (GameObject)Resources.Load("Prefabs/EnemyBullet", typeof(GameObject));
-        pool = GameObject.Find("Pool").GetComponent<Pool>();
+        alive = true;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        hpMax = hpCurrent = 100;
-
         shootPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         shootDir = transform.up;
-        //slider.value = hpCurrent / hpMax;
+
+        if (HP <= 0 && alive == true)
+        {
+            alive = false;
+            GetComponent<Collider2D>().enabled = false;
+            GetComponent<AudioSource>().clip = audioClips[1];
+            GetComponent<AudioSource>().Play();
+
+            particleDie.GetComponent<ParticleSystem>().Play();
+            text.color = Color.clear;
+            Destroy(gameObject, 2);
+        }
+
     }
 
 
@@ -50,7 +67,7 @@ public class Enemy : Role
         isShaking = true;
         Vector3 pos = transform.position;
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < shakeDelta; i++)
         {
             float x = shakeScale * Random.Range(-1f, 1f);
             float y = shakeScale * Random.Range(-1f, 1f);
@@ -61,22 +78,27 @@ public class Enemy : Role
             yield return 0;
         }
 
-        transform.position = pos;
 
+        transform.position = pos;
         isShaking = false;
     }
+
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerBullet"))
         {
-            HP -= 5;
+            HP -= 1;
             if (!isShaking)
             {
                 StartCoroutine(StartShake());
+                particleHit.GetComponent<ParticleSystem>().Stop();
+                particleHit.GetComponent<ParticleSystem>().Play();
+
             }
 
-            //GetComponent<AudioSource>().Play();
+            GetComponent<AudioSource>().clip = audioClips[0];
+            GetComponent<AudioSource>().Play();
         }
     }
 
