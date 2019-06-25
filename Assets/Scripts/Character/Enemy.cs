@@ -12,6 +12,7 @@ public class Enemy : Role
     Vector3 shootPos;
 
     bool isShaking;
+    bool isHit;
 
     public AudioClip[] audioClips;
 
@@ -23,13 +24,14 @@ public class Enemy : Role
     public GameObject particleHit;
     public GameObject particleDie;
 
-    int shakeDelta = 14;
+    public int shakeDelta = 14;
+    public int hitDelta = 14;
 
     public Text text;
 
     private void Awake()
     {
-        hpCurrent = hpMax = 20;
+        hpCurrent = hpMax = 100;
         bullet = (GameObject)Resources.Load("Prefabs/EnemyBullet", typeof(GameObject));
         alive = true;
     }
@@ -53,6 +55,9 @@ public class Enemy : Role
             GetComponent<AudioSource>().clip = audioClips[1];
             GetComponent<AudioSource>().Play();
 
+
+
+            particleDie.transform.position = transform.position;
             particleDie.GetComponent<ParticleSystem>().Play();
             text.color = Color.clear;
             Destroy(gameObject, 2);
@@ -78,23 +83,43 @@ public class Enemy : Role
             yield return 0;
         }
 
-
         transform.position = pos;
         isShaking = false;
     }
 
 
+    IEnumerator StartHitPaticle(Vector3 colPos)
+    {
+        isHit = true;
+        particleHit.GetComponent<ParticleSystem>().Stop();
+        particleHit.transform.position = Vector3.Lerp(transform.position, colPos, 0.9f);
+        particleHit.GetComponent<ParticleSystem>().Play();
+
+        for (int i = 0; i < hitDelta; i++)
+        {
+            yield return 0;
+        }
+        isHit = false;
+    }
+
+
+
     void OnCollisionEnter2D(Collision2D collision)
     {
+
+        ContactPoint2D c = collision.contacts[0];
+
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerBullet"))
         {
             HP -= 1;
             if (!isShaking)
             {
                 StartCoroutine(StartShake());
-                particleHit.GetComponent<ParticleSystem>().Stop();
-                particleHit.GetComponent<ParticleSystem>().Play();
-
+            }
+            if (!isHit)
+            {
+                StartCoroutine(StartHitPaticle(c.point));
             }
 
             GetComponent<AudioSource>().clip = audioClips[0];
