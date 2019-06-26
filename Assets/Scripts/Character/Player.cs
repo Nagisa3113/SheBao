@@ -10,10 +10,12 @@ public class Player : Role
     public float shootCD = 0.1f;
     public float shootPosOffset = 3f;
 
+    public GameObject partMove;
+    public GameObject partDie;
+
     private void Awake()
     {
         inputHandle = InputHandle.Instance;
-        //bullet = (GameObject)Resources.Load("Prefabs/PlayerBullet", typeof(GameObject));
     }
 
     private void Start()
@@ -21,7 +23,6 @@ public class Player : Role
         InvokeRepeating("Shoot", 1, shootCD);
         //CancelInvoke();
     }
-
 
     void FixedUpdate()
     {
@@ -33,7 +34,6 @@ public class Player : Role
     public void Update()
     {
         SpriteUpdate();
-
     }
 
 
@@ -76,7 +76,8 @@ public class Player : Role
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            GetDamage();
+            partDie.GetComponent<ParticleSystem>().Play();
+            //Destroy(gameObject, 0.8f);
         }
 
         moveDir = inputHandle.GetMoveDir();
@@ -86,26 +87,18 @@ public class Player : Role
 
     void SpriteUpdate()
     {
-
-    }
-
-    public void GetDamage()
-    {
-        hpCurrent--;
-        switch (hpCurrent)
+        if (GetComponent<Rigidbody2D>().velocity.sqrMagnitude > 50)
         {
-            case 2:
-                GameObject.Find("playerright").SetActive(false);
-                break;
-            case 1:
-                GameObject.Find("playerleft").SetActive(false);
-                break;
-            case 0:
-                break;
-
+            if(!partMove.gameObject.GetComponent<ParticleSystem>().isPlaying)
+                partMove.gameObject.GetComponent<ParticleSystem>().Play();
         }
-    }
+        else
+        {
+            if (partMove.gameObject.GetComponent<ParticleSystem>().isPlaying)
+                partMove.gameObject.GetComponent<ParticleSystem>().Stop();
+        }
 
+    }
 
 
 }
