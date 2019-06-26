@@ -4,14 +4,14 @@ using UnityEngine;
 using Sirenix;
 using Sirenix.OdinInspector;
 
-public class Pool : SerializedMonoBehaviour
+public class Pool : SingletonSerializedMonoBehavior<Pool>
 {
     GameObject CachePanel;
 
     [SerializeField]
-     Dictionary<string, Queue<GameObject>> m_Pool = new Dictionary<string, Queue<GameObject>>();
+    Dictionary<string, Queue<GameObject>> m_Pool = new Dictionary<string, Queue<GameObject>>();
 
-    [SerializeField]Dictionary<GameObject, string> m_GoTag = new Dictionary<GameObject, string>();
+    [SerializeField] Dictionary<GameObject, string> m_GoTag = new Dictionary<GameObject, string>();
 
 
     /// <summary>
@@ -23,6 +23,21 @@ public class Pool : SerializedMonoBehaviour
         m_GoTag.Clear();
     }
 
+    IEnumerator Delay(GameObject go, float delayTime)
+    {
+        for (float i = 0; i < delayTime; i += Time.fixedDeltaTime)
+        {
+            yield return 0;
+        }
+        ReturnCacheGameObejct(go);
+    }
+
+    public void ReturnCacheGameObejct_Delay(GameObject go, float delayTime)
+    {
+        StartCoroutine(Delay(go, delayTime));
+    }
+
+
     /// <summary>
     /// 回收GameObject
     /// </summary>
@@ -30,8 +45,7 @@ public class Pool : SerializedMonoBehaviour
     {
         if (CachePanel == null)
         {
-            CachePanel = new GameObject();
-            CachePanel.name = "CachePanel";
+            CachePanel = new GameObject("CachePanel");
             GameObject.DontDestroyOnLoad(CachePanel);
         }
 
@@ -68,6 +82,14 @@ public class Pool : SerializedMonoBehaviour
         {
             go = GameObject.Instantiate<GameObject>(prefab);
             go.name = prefab.name + Time.time;
+        }
+
+
+
+        if (prefab.layer == LayerMask.NameToLayer("EnemyBulletYellow"))
+        {
+            prefab.GetComponent<SpriteRenderer>().enabled = true;
+            prefab.GetComponent<CircleCollider2D>().enabled = true;
         }
 
 

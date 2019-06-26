@@ -2,40 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public enum EnemyBulletType
-{
-    Yellow,
-    Red,
-}
-
 public class EnemyBullet : Bullet
 {
-    public EnemyBulletType bulletType;
 
-    // Start is called before the first frame update
-    void Start()
+    public override void FixedUpdate()
     {
-        //GetComponent<Rigidbody2D>().AddForce(transform.up * speed, ForceMode2D.Force);
-        //Destroy(gameObject, 4);
-    }
+        base.FixedUpdate();
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        transform.position += transform.up * speed * Time.fixedDeltaTime;
-        //GetComponent<Rigidbody2D>().velocity = dir * speed * Time.fixedDeltaTime;
     }
 
 
     public override void OnCollisionEnter2D(Collision2D collision)
     {
-        base.OnCollisionEnter2D(collision);
-        if (collision.gameObject.tag == "Player")
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerBullet") 
+            && this.type == BulletType.EnemyYellow)
         {
-            collision.gameObject.GetComponent<Role>().HP -= 5;
+            this.GetComponent<SpriteRenderer>().enabled = false;
+            this.GetComponent<CircleCollider2D>().enabled = false;
+
+            if (this.GetComponentInChildren<ParticleSystem>().isPlaying)
+            {
+                this.GetComponentInChildren<ParticleSystem>().Stop();
+            }
+            this.GetComponentInChildren<ParticleSystem>().Play();
+
+            Pool.Instance.ReturnCacheGameObejct_Delay(this.gameObject, 0.5f);
+
+        }
+        else
+        {
+            base.OnCollisionEnter2D(collision);
         }
 
     }
+
+
+
 }

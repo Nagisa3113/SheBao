@@ -7,32 +7,22 @@ using UnityEngine.UI;
 public class Enemy : Role
 {
 
-    GameObject bullet;
-
     Vector3 shootPos;
 
     bool isShaking;
     bool isHit;
-
-    public AudioClip[] audioClips;
 
     bool alive;
 
     public float shakeScale = 0.3f;
     public float freq = 1;
 
-    public GameObject particleHit;
-    public GameObject particleDie;
+    public int shakeCD = 14;
+    public int hitCD = 14;
 
-    public int shakeDelta = 14;
-    public int hitDelta = 14;
-
-    public Text text;
 
     private void Awake()
     {
-        hpCurrent = hpMax = 100;
-        bullet = (GameObject)Resources.Load("Prefabs/EnemyBullet", typeof(GameObject));
         alive = true;
     }
 
@@ -45,24 +35,25 @@ public class Enemy : Role
     // Update is called once per frame
     void Update()
     {
-
         shootDir = transform.up;
 
         if (HP <= 0 && alive == true)
         {
-            alive = false;
-            GetComponent<Collider2D>().enabled = false;
-            GetComponent<AudioSource>().clip = audioClips[1];
-            GetComponent<AudioSource>().Play();
-
-
-
-            particleDie.transform.position = transform.position;
-            particleDie.GetComponent<ParticleSystem>().Play();
-            text.color = Color.clear;
-            Destroy(gameObject, 2);
+            Die();
         }
 
+    }
+
+
+    void Die()
+    {
+        alive = false;
+
+        GetComponent<Collider2D>().enabled = false;
+        GetComponentInChildren<Text>().enabled = false;
+        GetComponent<AudioController>().PlayDie();
+        GetComponent<ParticleController>().PlayDie(transform.position);
+        Destroy(gameObject, 2);
     }
 
 
@@ -72,7 +63,7 @@ public class Enemy : Role
         isShaking = true;
         Vector3 pos = transform.position;
 
-        for (int i = 0; i < shakeDelta; i++)
+        for (int i = 0; i < shakeCD; i++)
         {
             float x = shakeScale * Random.Range(-1f, 1f);
             float y = shakeScale * Random.Range(-1f, 1f);
@@ -91,11 +82,10 @@ public class Enemy : Role
     IEnumerator StartHitPaticle(Vector3 colPos)
     {
         isHit = true;
-        particleHit.GetComponent<ParticleSystem>().Stop();
-        particleHit.transform.position = Vector3.Lerp(transform.position, colPos, 0.9f);
-        particleHit.GetComponent<ParticleSystem>().Play();
 
-        for (int i = 0; i < hitDelta; i++)
+        GetComponent<ParticleController>().PlayHit(Vector3.Lerp(transform.position, colPos, 0.9f));
+
+        for (int i = 0; i < hitCD; i++)
         {
             yield return 0;
         }
@@ -109,7 +99,6 @@ public class Enemy : Role
 
         ContactPoint2D c = collision.contacts[0];
 
-
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerBullet"))
         {
             HP -= 1;
@@ -122,8 +111,7 @@ public class Enemy : Role
                 StartCoroutine(StartHitPaticle(c.point));
             }
 
-            GetComponent<AudioSource>().clip = audioClips[0];
-            GetComponent<AudioSource>().Play();
+            GetComponent<AudioController>().PlayHit();
         }
     }
 

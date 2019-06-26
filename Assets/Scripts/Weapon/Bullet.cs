@@ -1,30 +1,59 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum BulletType
+{
+    Player,
+    EnemyRed,
+    EnemyYellow,
+}
+
+
 public class Bullet : MonoBehaviour
 {
     [SerializeField]
-    protected float speed;
+    protected BulletType type;
+    public BulletType Type
+    {
+        get
+        {
+            return type;
+        }
+    }
 
     [SerializeField]
-    protected float damage;
+    protected float speed;
+    public float Speed
+    {
+        set
+        {
+            speed = value;
+        }
+    }
+
+    [SerializeField]
+    protected Vector3 dir;
+    public Vector3 Dir
+    {
+        set
+        {
+            dir = value;
+        }
+    }
+
+
+    public virtual void FixedUpdate()
+    {
+        dir = transform.up;
+        transform.position += dir * speed * Time.fixedDeltaTime;
+    }
 
 
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        Pool pool = GameObject.Find("Pool").GetComponent<Pool>();
-        pool.ReturnCacheGameObejct(this.gameObject);
+
+        Pool.Instance.ReturnCacheGameObejct(this.gameObject);
         //Debug.Log(collision.gameObject.name);
     }
 
-    public static GameObject InitBullet(GameObject bullet, Vector3 pos,Vector3 dir)
-    {
-        Pool pool = GameObject.Find("Pool").GetComponent<Pool>();
-        GameObject b = pool.RequestCacheGameObejct(bullet);
-        b.transform.position = pos;
-        b.transform.up = dir;
-        b.transform.SetParent(GameObject.Find("Bullets").transform);
-
-        return b;
-    }
 }

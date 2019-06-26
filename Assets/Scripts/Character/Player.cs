@@ -5,23 +5,15 @@ using UnityEngine.UI;
 
 public class Player : Role
 {
-    GameObject bullet;
-
-    public float shootCD = 0.1f;
-
     InputHandle inputHandle;
 
-
+    public float shootCD = 0.1f;
     public float shootPosOffset = 3f;
-
 
     private void Awake()
     {
         inputHandle = InputHandle.Instance;
-
-        bullet = (GameObject)Resources.Load("Prefabs/PlayerBullet", typeof(GameObject));
-
-        hpCurrent = hpMax = 3;
+        //bullet = (GameObject)Resources.Load("Prefabs/PlayerBullet", typeof(GameObject));
     }
 
     private void Start()
@@ -41,6 +33,7 @@ public class Player : Role
     public void Update()
     {
         SpriteUpdate();
+
     }
 
 
@@ -49,12 +42,10 @@ public class Player : Role
         Vector3 dir = transform.up;
         Vector3 pos = gameObject.transform.position + dir.normalized * shootPosOffset;
 
-        Bullet.InitBullet(bullet, pos, dir);
+        BulletController.Instance.CreateBullet(BulletType.Player, pos, dir);
 
+        GetComponent<AudioSource>().Play();
 
-        {
-            GetComponent<AudioSource>().Play();
-        }
     }
 
     void PhysicsUpdate()

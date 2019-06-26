@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3626777456306508672}
   - component: {fileID: 1744489113180236471}
   m_Layer: 0
-  m_Name: Particle_BulletExplosion
+  m_Name: Particle_Explosion_Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -865,7 +865,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 92.7
+      scalar: 100
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -975,7 +975,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 14
+        scalar: 20.58
         minScalar: 30
         maxCurve:
           serializedVersion: 2
