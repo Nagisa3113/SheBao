@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Singleton<T> where T : new()
+public class Singleton<T> where T : class, new()
 {
     private static T instance;
 
@@ -18,5 +18,10 @@ public class Singleton<T> where T : new()
             return instance;
         }
     }
+
+    //private Singleton()
+    //{
+
+    //}
 
 }

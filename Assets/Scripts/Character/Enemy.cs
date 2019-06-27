@@ -12,7 +12,7 @@ public class Enemy : Role
     bool isShaking;
     bool isHit;
 
-    bool alive;
+    public bool alive;
 
     public float shakeScale = 0.3f;
     public float freq = 1;
@@ -20,27 +20,31 @@ public class Enemy : Role
     public int shakeCD = 14;
     public int hitCD = 14;
 
+    public delegate IEnumerator IEDelegate(Enemy enemy);
+
+    IEDelegate iEDelegate = null;
 
     private void Awake()
     {
         alive = true;
+
+        //iEDelegate = BulletController.Instance.FireRandom;
+        //iEDelegate = BulletController.Instance.FireRound;
+        iEDelegate = BulletController.Instance.FireArc;
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
         shootPos = transform.position;
+        StartCoroutine(iEDelegate(this));
     }
 
     // Update is called once per frame
     void Update()
     {
         shootDir = transform.up;
-
-        if (HP <= 0 && alive == true)
-        {
-        }
-
     }
 
 
@@ -98,13 +102,13 @@ public class Enemy : Role
     void OnCollisionEnter2D(Collision2D collision)
     {
 
-        ContactPoint2D c = collision.contacts[0];
-
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerBullet"))
         {
             hp--;
+
             if (hp < 0)
             {
+                alive = false;
                 Die();
             }
 
@@ -116,7 +120,7 @@ public class Enemy : Role
                 }
                 if (!isHit)
                 {
-                    StartCoroutine(StartHitPaticle(c.point));
+                    StartCoroutine(StartHitPaticle(collision.contacts[0].point));
                 }
             }
 

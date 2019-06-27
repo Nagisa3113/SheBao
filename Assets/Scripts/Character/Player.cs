@@ -12,9 +12,13 @@ public class Player : Role
 
     public float shootCD = 0.1f;
     public float shootPosOffset = 3f;
+    public int movespeedlow;
 
     public GameObject partMove;
     public GameObject partDie;
+
+    Vector3 tmp = Vector3.up;
+
 
     private void Awake()
     {
@@ -56,9 +60,14 @@ public class Player : Role
     {
         GetComponent<Rigidbody2D>().velocity = moveDir * moveSpeed;
 
-        if (shootDir != Vector2.zero)
+        if (shootDir.sqrMagnitude > 0.5)
         {
             gameObject.transform.up = shootDir;
+            tmp = gameObject.transform.up;
+        }
+        else
+        {
+            gameObject.transform.up = tmp;
         }
     }
 
@@ -90,7 +99,7 @@ public class Player : Role
 
     void SpriteUpdate()
     {
-        if (GetComponent<Rigidbody2D>().velocity.sqrMagnitude > 50)
+        if (GetComponent<Rigidbody2D>().velocity.sqrMagnitude > movespeedlow)
         {
             if (!partMove.gameObject.GetComponent<ParticleSystem>().isPlaying)
                 partMove.gameObject.GetComponent<ParticleSystem>().Play();

@@ -13,7 +13,6 @@ public class Bullet : MonoBehaviour
 {
     public bool isArcMode;
 
-
     [SerializeField]
     protected BulletType type;
     public BulletType Type
@@ -57,19 +56,6 @@ public class Bullet : MonoBehaviour
 
         Pool.Instance.ReturnCacheGameObejct(this.gameObject);
         //Debug.Log(collision.gameObject.name);
-    }
-
-
-    public IEnumerator BulletArc(float angle)
-    {
-        isArcMode = true;
-        while (isArcMode)
-        {
-            Quaternion tempQuat = Quaternion.AngleAxis(angle, Vector3.forward);
-            transform.up = tempQuat * transform.up;
-            transform.position += speed * transform.up * 0.1f/* * Time.deltaTime*/;
-            yield return new WaitForSeconds(0.3f); //速度
-        }
     }
 
 }
