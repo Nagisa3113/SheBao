@@ -18,6 +18,9 @@ public class BulletController : SingletonSerializedMonoBehavior<BulletController
 
     Pool pool;
 
+    [SerializeField]
+    protected float offset;
+
 
     public delegate IEnumerator IEDelegate(Vector3 vector3, int num, int rotation);
 
@@ -61,6 +64,7 @@ public class BulletController : SingletonSerializedMonoBehavior<BulletController
             case 4:
                 iEDelegate = new IEDelegate(FireArc);
                 break;
+
             default:
                 break;
         }
@@ -136,6 +140,7 @@ public class BulletController : SingletonSerializedMonoBehavior<BulletController
     public IEnumerator FireRandom(Vector3 pos, int num, int rotation)
     {
         Vector3 dir;
+
         GameObject player = GameObject.Find("Player");
 
         float x1, y1;
@@ -190,12 +195,14 @@ public class BulletController : SingletonSerializedMonoBehavior<BulletController
     //}
 
 
+
     //圆弧形弹幕
     public IEnumerator FireArc(Vector3 pos, int num, int rotation)
     {
         Vector3 dir = shootDir;
         Quaternion rotateQuate = Quaternion.AngleAxis(rotation, Vector3.forward);
         while (true)
+
         {
             for (int j = 0; j < 360 / rotation; j++)
             {
@@ -210,7 +217,32 @@ public class BulletController : SingletonSerializedMonoBehavior<BulletController
         }
     }
 
-
+    //双重圆弧形
+    public IEnumerator FireDoubleArc(Vector3 pos, int num, int rotation)
+    {
+        Vector3 dir = shootDir;
+        Quaternion rotateQuate = Quaternion.AngleAxis(rotation, Vector3.forward);
+        Vector3 pos1, pos2;
+        pos1 = new Vector3(pos.x - offset, pos.y, pos.z);
+        pos2 = new Vector3(pos.x + offset, pos.y, pos.z);
+        while (true)
+        {
+            for (int j = 0; j < 360 / rotation / 2; j++)
+            {
+                Bullet tempBullet1 = CreateBullet(BulletType.EnemyRed, pos1, dir);
+                tempBullet1.StartCoroutine(tempBullet1.BulletArc(5));
+                Bullet tempBullet2 = CreateBullet(BulletType.EnemyRed, pos2, dir);
+                tempBullet2.StartCoroutine(tempBullet2.BulletArc(5));
+                dir = rotateQuate * dir;
+                Bullet tempBullet3 = CreateBullet(BulletType.EnemyYellow, pos1, dir);
+                tempBullet3.StartCoroutine(tempBullet3.BulletArc(5));
+                Bullet tempBullet4 = CreateBullet(BulletType.EnemyYellow, pos2, dir);
+                tempBullet4.StartCoroutine(tempBullet4.BulletArc(5));
+                dir = rotateQuate * dir;
+            }
+            yield return new WaitForSeconds(0.4f);
+        }
+    }
 
     public Bullet CreateBullet(BulletType type, Vector3 pos, Vector3 dir)
     {
