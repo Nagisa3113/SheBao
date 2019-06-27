@@ -11,14 +11,15 @@ public class Enemy : Role
 
     bool isShaking;
     bool isHit;
-
-    public bool alive;
+    bool isAudio;
 
     public float shakeScale = 0.3f;
     public float freq = 1;
 
     public int shakeCD = 14;
     public int hitCD = 14;
+    public int audioCD = 5;
+
 
     public delegate IEnumerator IEDelegate(Enemy enemy);
 
@@ -26,8 +27,6 @@ public class Enemy : Role
 
     private void Awake()
     {
-        alive = true;
-
         //iEDelegate = BulletController.Instance.FireRandom;
         //iEDelegate = BulletController.Instance.FireRound;
         iEDelegate = BulletController.Instance.FireArc;
@@ -50,8 +49,7 @@ public class Enemy : Role
 
     void Die()
     {
-        alive = false;
-
+        StopAllCoroutines();
         GetComponent<Collider2D>().enabled = false;
         GetComponentInChildren<Text>().enabled = false;
         GetComponent<AudioController>().PlayDie();
@@ -59,9 +57,20 @@ public class Enemy : Role
         Destroy(gameObject, 2);
     }
 
+    IEnumerator AudioPlay()
+    {
+        isAudio = true;
+        GetComponent<AudioController>().PlayHit();
+        for (int i = 0; i < audioCD; i++)
+        {
+            yield return null;
+        }
+        isAudio = false;
+
+    }
 
 
-    IEnumerator StartShake()
+    IEnumerator Shake()
     {
         isShaking = true;
         Vector3 pos = transform.position;
@@ -82,13 +91,11 @@ public class Enemy : Role
     }
 
 
-    IEnumerator StartHitPaticle(Vector3 colPos)
+    IEnumerator HitPaticle(Vector3 colPos)
     {
         isHit = true;
 
-        GetComponentInChildren<ParticleSystem>().transform.position = Vector3.Lerp(transform.position, colPos, 0.9f);
-        GetComponentInChildren<ParticleSystem>().Stop();
-        GetComponentInChildren<ParticleSystem>().Play();
+        ParticleController.Instance.CreateEnemyhit(Vector3.Lerp(transform.position, colPos, 0.9f));
 
         for (int i = 0; i < hitCD; i++)
         {
@@ -108,7 +115,6 @@ public class Enemy : Role
 
             if (hp < 0)
             {
-                alive = false;
                 Die();
             }
 
@@ -116,15 +122,15 @@ public class Enemy : Role
             {
                 if (!isShaking)
                 {
-                    StartCoroutine(StartShake());
+                    StartCoroutine(Shake());
                 }
                 if (!isHit)
                 {
-                    StartCoroutine(StartHitPaticle(collision.contacts[0].point));
+                    StartCoroutine(HitPaticle(collision.contacts[0].point));
                 }
             }
-
-            GetComponent<AudioController>().PlayHit();
+            if (!isAudio)
+                StartCoroutine(AudioPlay());
         }
     }
 

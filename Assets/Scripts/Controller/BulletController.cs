@@ -31,7 +31,7 @@ public class BulletController : SingletonMonoBehavior<BulletController>
         GameObject player = GameObject.Find("Player");
         float x1, y1;
 
-        while (enemy.alive)
+        while (true)
         {
             dir = player.transform.position - enemy.transform.position;
             x1 = Random.Range(-0.6f, 0.6f);
@@ -59,7 +59,7 @@ public class BulletController : SingletonMonoBehavior<BulletController>
         Vector3 dir = enemy.transform.up;
         Vector3 pos;
         Quaternion rotateQuate = Quaternion.AngleAxis(45, Vector3.forward);//使用四元数制造绕Z轴旋转10度的旋转
-        while (enemy.alive)
+        while (true)
         {
             pos = enemy.transform.position;
             for (int j = 0; j < 8; j++)
@@ -73,8 +73,6 @@ public class BulletController : SingletonMonoBehavior<BulletController>
             }
             yield return new WaitForSeconds(0.5f);
         }
-
-        yield return null;
     }
 
 
@@ -91,7 +89,7 @@ public class BulletController : SingletonMonoBehavior<BulletController>
         Vector3 pos;
         Quaternion r1 = Quaternion.AngleAxis(15, Vector3.forward);
         Quaternion rotateQuate = Quaternion.AngleAxis(90, Vector3.forward);
-        while (enemy.alive)
+        while (true)
         {
             pos = enemy.transform.position;
             for (int j = 0; j < 4; j++)

@@ -12,13 +12,13 @@ public class Player : Role
 
     public float shootCD = 0.1f;
     public float shootPosOffset = 3f;
+    public int audioCD = 14;
+    bool isAudio;
+
     public int movespeedlow;
 
     public GameObject partMove;
     public GameObject partDie;
-
-    Vector3 tmp = Vector3.up;
-
 
     private void Awake()
     {
@@ -52,7 +52,8 @@ public class Player : Role
 
         BulletController.Instance.CreateBullet(BulletType.Player, pos, dir);
 
-        GetComponent<AudioSource>().Play();
+        if (!isAudio)
+            StartCoroutine(AudioPlay());
 
     }
 
@@ -63,17 +64,19 @@ public class Player : Role
         if (shootDir.sqrMagnitude > 0.5)
         {
             gameObject.transform.up = shootDir;
-            tmp = gameObject.transform.up;
         }
-        else
-        {
-            gameObject.transform.up = tmp;
-        }
+
     }
 
-
-    void AudioUpdate()
+    IEnumerator AudioPlay()
     {
+        isAudio = true;
+        GetComponent<AudioSource>().Play();
+        for (int i = 0; i < audioCD; i++)
+        {
+            yield return null;
+        }
+        isAudio = false;
 
     }
 

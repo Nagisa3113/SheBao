@@ -7,6 +7,7 @@ public class ParticleController : SingletonMonoBehavior<ParticleController>
 
     public GameObject bulletExplosion;
     public GameObject enemyExplosion;
+    public GameObject enemyHit;
 
     public List<GameObject> particleObjects;
 
@@ -18,6 +19,11 @@ public class ParticleController : SingletonMonoBehavior<ParticleController>
     public void CreateEnemyExplosion(Vector3 pos)
     {
         CreateParticle(pos, enemyExplosion);
+    }
+
+    public void CreateEnemyhit(Vector3 pos)
+    {
+        CreateParticle(pos, enemyHit);
     }
 
 

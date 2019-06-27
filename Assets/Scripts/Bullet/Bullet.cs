@@ -11,8 +11,6 @@ public enum BulletType
 
 public class Bullet : MonoBehaviour
 {
-    public bool isArcMode;
-
     [SerializeField]
     protected BulletType type;
     public BulletType Type

@@ -17,7 +17,7 @@ public class EnemyBullet : Bullet
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerBullet")
             && this.type == BulletType.EnemyYellow)
         {
-
+            //ParticleController.Instance.CreateEnemyhit(transform.position);
             ParticleController.Instance.CreateBulletExplosion(transform.position);
         }
 
