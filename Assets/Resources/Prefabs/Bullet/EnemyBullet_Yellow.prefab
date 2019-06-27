@@ -132,6 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f14e543643544479a9ff82c90d35435e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBallMode: 0
+  isArcMode: 0
   type: 2
   speed: 10
   dir: {x: 0, y: 0, z: 0}

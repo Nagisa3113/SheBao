@@ -524,7 +524,169 @@ MonoBehaviour:
       Data: 0|bulletInfo[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 8
+    - Name: 
+      Entry: 7
+      Data: bulletInfo, Assembly-CSharp
+    - Name: vector3
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: num
+      Entry: 3
+      Data: 2
+    - Name: rotation
+      Entry: 3
+      Data: 90
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: bulletInfo, Assembly-CSharp
+    - Name: vector3
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: num
+      Entry: 3
+      Data: 4
+    - Name: rotation
+      Entry: 3
+      Data: 45
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: bulletInfo, Assembly-CSharp
+    - Name: vector3
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: num
+      Entry: 3
+      Data: 0
+    - Name: rotation
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: bulletInfo, Assembly-CSharp
+    - Name: vector3
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: num
+      Entry: 3
+      Data: 0
+    - Name: rotation
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: bulletInfo, Assembly-CSharp
+    - Name: vector3
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: num
+      Entry: 3
+      Data: 0
+    - Name: rotation
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: bulletInfo, Assembly-CSharp
+    - Name: vector3
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: num
+      Entry: 3
+      Data: 0
+    - Name: rotation
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: bulletInfo, Assembly-CSharp
@@ -576,33 +738,6 @@ MonoBehaviour:
     - Name: rotation
       Entry: 3
       Data: 45
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: bulletInfo, Assembly-CSharp
-    - Name: vector3
-      Entry: 7
-      Data: UnityEngine.Vector3, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: num
-      Entry: 3
-      Data: 0
-    - Name: rotation
-      Entry: 3
-      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -612,8 +747,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  opt: 1
+  opt: 6
   enemy: {fileID: 246976301}
+  offset: 4
 --- !u!1001 &1363180050
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -684,6 +820,10 @@ PrefabInstance:
     - target: {fileID: 1235759188, guid: 3e571cbecdc884030b43d4994ff6fefd, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1524097427, guid: 3e571cbecdc884030b43d4994ff6fefd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 104.86719
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e571cbecdc884030b43d4994ff6fefd, type: 3}

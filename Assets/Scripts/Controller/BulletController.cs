@@ -18,6 +18,9 @@ public class BulletController : SingletonSerializedMonoBehavior<BulletController
 
     Pool pool;
 
+    [SerializeField]
+    protected float offset;
+
 
     public delegate IEnumerator IEDelegate(Vector3 vector3, int num, int rotation);
 
@@ -60,12 +63,14 @@ public class BulletController : SingletonSerializedMonoBehavior<BulletController
             case 4:
                 iEDelegate = new IEDelegate(FireTrack);
                 break;
-
             case 5:
                 iEDelegate = new IEDelegate(FireBall);
                 break;
             case 6:
                 iEDelegate = new IEDelegate(FireArc);
+                break;
+            case 7:
+                iEDelegate = new IEDelegate(FireDoubleArc);
                 break;
 
             default:
@@ -172,14 +177,23 @@ public class BulletController : SingletonSerializedMonoBehavior<BulletController
     {
         Vector3 dir;
         GameObject player;
-        for (int i = 0; i < 5; i++)
+        float ran;
+        Quaternion rotateQuate;
+        for (int i = 0; i < num; i++)
         {
+            ran = Random.Range(-30, 30);
+            rotateQuate = Quaternion.AngleAxis(ran, Vector3.forward);
             player = GameObject.Find("Player");
             dir = player.transform.position - enemy.transform.position;
+            dir = rotateQuate * dir;
             CreateBullet(BulletType.EnemyRed, pos, dir);
             yield return new WaitForSeconds(0.5f);
+
+            ran = Random.Range(0, 30);
+            rotateQuate = Quaternion.AngleAxis(ran, Vector3.forward);
             player = GameObject.Find("Player");
             dir = player.transform.position - enemy.transform.position;
+            dir = rotateQuate * dir;
             CreateBullet(BulletType.EnemyYellow, pos, dir);
             yield return new WaitForSeconds(0.5f);
         }
@@ -190,16 +204,18 @@ public class BulletController : SingletonSerializedMonoBehavior<BulletController
     {
         Vector3 dir = shootDir;      //发射方向
         Quaternion rotateQuate = Quaternion.AngleAxis(rotation, Vector3.forward);
+        Bullet tempBullet;
         //float distance = 1.0f;
         for (int j = 0; j < num; j++)
         {
             for (int i = 0; i < 360 / rotation; i++)
             {
-                //Vector3 creatPoint = enemy.transform.position + dir * distance;
-                Bullet tempBullet = CreateBullet(BulletType.EnemyRed, pos, dir);
-                //tempBullet.isMove = false;
-                //tempBullet.StartCoroutine(tempBullet.DirChangeMoveMode(10.0f, 0.4f, 15));
-                //dir = rotateQuate * dir;
+                if (j % 2 == 0)
+                    tempBullet = CreateBullet(BulletType.EnemyRed, pos, dir);
+                else
+                    tempBullet = CreateBullet(BulletType.EnemyYellow, pos, dir);
+                tempBullet.StartCoroutine(tempBullet.DirChangeMoveMode(10.0f, 0.4f, 15));
+                dir = rotateQuate * dir;
             }
             yield return new WaitForSeconds(0.2f);
         }
@@ -210,21 +226,47 @@ public class BulletController : SingletonSerializedMonoBehavior<BulletController
     {
         Vector3 dir = shootDir;
         Quaternion rotateQuate = Quaternion.AngleAxis(rotation, Vector3.forward);
-        for (int i = 0; i < num; i++)
+        while(true)
         {
             for (int j = 0; j < 360 / rotation; j++)
             {
-                Bullet tempBullet = CreateBullet(BulletType.EnemyRed, pos, dir);
-                //tempBullet.isMove = false;
-                //enemy = GameObject.Find("Enemy");
-                //tempBullet.StartCoroutine(tempBullet.BulletArc(enemy.transform.position + 3 * new Vector3(dir.y, -dir.x, 0).normalized, 15));
+                Bullet tempBullet1 = CreateBullet(BulletType.EnemyRed, pos, dir);
+                tempBullet1.StartCoroutine(tempBullet1.BulletArc(5));
+                dir = rotateQuate * dir;
+                Bullet tempBullet2 = CreateBullet(BulletType.EnemyYellow, pos, dir);
+                tempBullet2.StartCoroutine(tempBullet2.BulletArc(5));
                 dir = rotateQuate * dir;
             }
-            yield return new WaitForSeconds(0.02f);
+            yield return new WaitForSeconds(0.4f); //间隔
         }
     }
 
-
+    //双重圆弧形
+    public IEnumerator FireDoubleArc(Vector3 pos, int num, int rotation)
+    {
+        Vector3 dir = shootDir;
+        Quaternion rotateQuate = Quaternion.AngleAxis(rotation, Vector3.forward);
+        Vector3 pos1, pos2;
+        pos1 = new Vector3(pos.x - offset, pos.y, pos.z);
+        pos2 = new Vector3(pos.x + offset, pos.y, pos.z);
+        while (true)
+        {
+            for (int j = 0; j < 360 / rotation / 2; j++)
+            {
+                Bullet tempBullet1 = CreateBullet(BulletType.EnemyRed, pos1, dir);
+                tempBullet1.StartCoroutine(tempBullet1.BulletArc(5));
+                Bullet tempBullet2 = CreateBullet(BulletType.EnemyRed, pos2, dir);
+                tempBullet2.StartCoroutine(tempBullet2.BulletArc(5));
+                dir = rotateQuate * dir;
+                Bullet tempBullet3 = CreateBullet(BulletType.EnemyYellow, pos1, dir);
+                tempBullet3.StartCoroutine(tempBullet3.BulletArc(5));
+                Bullet tempBullet4 = CreateBullet(BulletType.EnemyYellow, pos2, dir);
+                tempBullet4.StartCoroutine(tempBullet4.BulletArc(5));
+                dir = rotateQuate * dir;
+            }
+            yield return new WaitForSeconds(0.4f);
+        }
+    }
 
 
     public Bullet CreateBullet(BulletType type, Vector3 pos, Vector3 dir)
