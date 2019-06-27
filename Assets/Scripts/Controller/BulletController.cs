@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletController : SingletonSerializedMonoBehavior<BulletController>
+public class BulletController : SingletonMonoBehavior<BulletController>
 {
 
     public int opt = 0;
@@ -274,7 +274,7 @@ public class BulletController : SingletonSerializedMonoBehavior<BulletController
 }
 
 
-
+[System.Serializable]
 public struct bulletInfo
 {
     public Vector3 vector3;

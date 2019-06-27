@@ -1,10 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Sirenix;
-using Sirenix.OdinInspector;
 
-public class Pool : SingletonSerializedMonoBehavior<Pool>
+public class Pool : SingletonMonoBehavior<Pool>
 {
     GameObject CachePanel;
 

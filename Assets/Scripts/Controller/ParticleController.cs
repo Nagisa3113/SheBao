@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParticleController : SingletonSerializedMonoBehavior<ParticleController>
+public class ParticleController : SingletonMonoBehavior<ParticleController>
 {
 
     public GameObject bulletExplosion;
