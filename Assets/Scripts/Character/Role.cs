@@ -14,19 +14,16 @@ public class Role : MonoBehaviour
     protected Vector2 shootDir;
 
     [SerializeField]
-    protected float hpMax;
-
-    [SerializeField]
-    protected float hpCurrent;
-    public float HP
+    protected int hp;
+    public int HP
     {
         get
         {
-            return hpCurrent;
+            return hp;
         }
         set
         {
-            hpCurrent = value;
+            hp = value;
         }
     }
 

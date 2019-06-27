@@ -2,31 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
-public class ParticleController : MonoBehaviour
+public class ParticleController : SingletonSerializedMonoBehavior<ParticleController>
 {
 
-    public GameObject particleHit;
-    public GameObject particleDie;
+    public GameObject bulletExplosion;
+    public GameObject enemyExplosion;
 
+    public List<GameObject> particleObjects;
 
-    public void PlayDie(Vector3 pos)
+    public void CreateBulletExplosion(Vector3 pos)
     {
-        PlayParticleSystem(particleDie,pos);
+        CreateParticle(pos, bulletExplosion);
     }
 
-    public void PlayHit(Vector3 pos)
+    public void CreateEnemyExplosion(Vector3 pos)
     {
-        PlayParticleSystem(particleHit,pos);
+        CreateParticle(pos, enemyExplosion);
     }
 
 
-    void PlayParticleSystem(GameObject go, Vector3 pos)
+    private void CreateParticle(Vector3 pos, GameObject gameObject)
     {
-        go.GetComponent<ParticleSystem>().Stop();
+        GameObject go = Pool.Instance.RequestCacheGameObejct(gameObject);
+        particleObjects.Add(go);
+        go.transform.SetParent(this.transform);
         go.transform.position = pos;
         go.GetComponent<ParticleSystem>().Play();
+    }
 
+    private void Update()
+    {
+        for (int i = particleObjects.Count - 1; i >= 0; i--)
+        {
+            if (particleObjects[i].GetComponent<ParticleSystem>().isStopped)
+            {
+                Pool.Instance.ReturnCacheGameObejct(particleObjects[i]);
+                particleObjects.RemoveAt(i);
+            }
+        }
     }
 
 

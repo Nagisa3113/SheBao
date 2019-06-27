@@ -39,7 +39,6 @@ public class Enemy : Role
 
         if (HP <= 0 && alive == true)
         {
-            Die();
         }
 
     }
@@ -52,7 +51,7 @@ public class Enemy : Role
         GetComponent<Collider2D>().enabled = false;
         GetComponentInChildren<Text>().enabled = false;
         GetComponent<AudioController>().PlayDie();
-        GetComponent<ParticleController>().PlayDie(transform.position);
+        ParticleController.Instance.CreateEnemyExplosion(transform.position);
         Destroy(gameObject, 2);
     }
 
@@ -83,7 +82,9 @@ public class Enemy : Role
     {
         isHit = true;
 
-        GetComponent<ParticleController>().PlayHit(Vector3.Lerp(transform.position, colPos, 0.9f));
+        GetComponentInChildren<ParticleSystem>().transform.position = Vector3.Lerp(transform.position, colPos, 0.9f);
+        GetComponentInChildren<ParticleSystem>().Stop();
+        GetComponentInChildren<ParticleSystem>().Play();
 
         for (int i = 0; i < hitCD; i++)
         {
@@ -101,14 +102,22 @@ public class Enemy : Role
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerBullet"))
         {
-            HP -= 1;
-            if (!isShaking)
+            hp--;
+            if (hp < 0)
             {
-                StartCoroutine(StartShake());
+                Die();
             }
-            if (!isHit)
+
+            else
             {
-                StartCoroutine(StartHitPaticle(c.point));
+                if (!isShaking)
+                {
+                    StartCoroutine(StartShake());
+                }
+                if (!isHit)
+                {
+                    StartCoroutine(StartHitPaticle(c.point));
+                }
             }
 
             GetComponent<AudioController>().PlayHit();

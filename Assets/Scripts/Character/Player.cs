@@ -7,6 +7,9 @@ public class Player : Role
 {
     InputHandle inputHandle;
 
+    public Sprite[] sprites;
+    public SpriteRenderer subSprite;
+
     public float shootCD = 0.1f;
     public float shootPosOffset = 3f;
 
@@ -15,6 +18,7 @@ public class Player : Role
 
     private void Awake()
     {
+        GetComponent<SpriteRenderer>().sprite = sprites[2];
         inputHandle = InputHandle.Instance;
     }
 
@@ -77,7 +81,6 @@ public class Player : Role
         if (Input.GetKeyDown(KeyCode.C))
         {
             partDie.GetComponent<ParticleSystem>().Play();
-            //Destroy(gameObject, 0.8f);
         }
 
         moveDir = inputHandle.GetMoveDir();
@@ -89,7 +92,7 @@ public class Player : Role
     {
         if (GetComponent<Rigidbody2D>().velocity.sqrMagnitude > 50)
         {
-            if(!partMove.gameObject.GetComponent<ParticleSystem>().isPlaying)
+            if (!partMove.gameObject.GetComponent<ParticleSystem>().isPlaying)
                 partMove.gameObject.GetComponent<ParticleSystem>().Play();
         }
         else
@@ -99,6 +102,34 @@ public class Player : Role
         }
 
     }
+
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("EnemyBulletRed")
+            || collision.gameObject.layer == LayerMask.NameToLayer("EnemyBulletYellow"))
+        {
+            hp--;
+            partDie.gameObject.GetComponent<ParticleSystem>().Play();
+            if (hp < 0)
+            {
+                Destroy(gameObject, 0.5f);
+
+            }
+            else if (hp < 3)
+            {
+                GetComponent<SpriteRenderer>().sprite = sprites[hp];
+                subSprite.sprite = sprites[hp];
+            }
+        }
+    }
+
+
+
+
+
+
 
 
 }

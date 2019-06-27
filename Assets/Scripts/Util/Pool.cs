@@ -23,20 +23,6 @@ public class Pool : SingletonSerializedMonoBehavior<Pool>
         m_GoTag.Clear();
     }
 
-    IEnumerator Delay(GameObject go, float delayTime)
-    {
-        for (float i = 0; i < delayTime; i += Time.fixedDeltaTime)
-        {
-            yield return 0;
-        }
-        ReturnCacheGameObejct(go);
-    }
-
-    public void ReturnCacheGameObejct_Delay(GameObject go, float delayTime)
-    {
-        StartCoroutine(Delay(go, delayTime));
-    }
-
 
     /// <summary>
     /// 回收GameObject
@@ -129,10 +115,6 @@ public class Pool : SingletonSerializedMonoBehavior<Pool>
             Debug.LogError("remove out mark error, gameObject has not been marked");
         }
     }
-
-
-
-
 
 
 
