@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix;
+using Sirenix.OdinInspector;
 
-
-public class SingletonMonoBehavior<T> : MonoBehaviour where T : SingletonMonoBehavior<T>
+public class SingletonMonoBehavior<T> :SerializedMonoBehaviour where T : SingletonMonoBehavior<T>
 {
     private static T instance;
 

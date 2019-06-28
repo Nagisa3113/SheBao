@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class Player : Role
 {
+    [SerializeField]
+    Vector2 shootDir;
+
+
     InputHandle inputHandle;
 
     public Sprite[] sprites;

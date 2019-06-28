@@ -4,10 +4,10 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Enemy : Role
+public class Boss : Role
 {
 
-    Vector3 shootPos;
+    public Text text;
 
     bool isShaking;
     bool isHit;
@@ -20,8 +20,7 @@ public class Enemy : Role
     public int hitCD = 14;
     public int audioCD = 5;
 
-
-    public delegate IEnumerator IEDelegate(Enemy enemy);
+    public delegate IEnumerator IEDelegate(Role enemy);
 
     IEDelegate iEDelegate = null;
 
@@ -36,25 +35,39 @@ public class Enemy : Role
     // Start is called before the first frame update
     void Start()
     {
-        shootPos = transform.position;
         StartCoroutine(iEDelegate(this));
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        shootDir = transform.up;
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        text.transform.position = screenPos;
     }
 
+
+
+    void BeHit(Vector3 hitPos)
+    {
+        if (--hp > 0)
+        {
+            if (!isShaking)
+                StartCoroutine(Shake());
+            if (!isHit)
+                StartCoroutine(HitPaticle(hitPos));
+            if (!isAudio)
+                StartCoroutine(AudioPlay());
+        }
+        else
+        {
+            Die();
+        }
+    }
 
     void Die()
     {
         StopAllCoroutines();
-        GetComponent<Collider2D>().enabled = false;
-        GetComponentInChildren<Text>().enabled = false;
-        GetComponent<AudioController>().PlayDie();
+        Pool.Instance.ReturnCacheGameObejct(this.gameObject);
         ParticleController.Instance.CreateEnemyExplosion(transform.position);
-        Destroy(gameObject, 2);
     }
 
     IEnumerator AudioPlay()
@@ -68,7 +81,6 @@ public class Enemy : Role
         isAudio = false;
 
     }
-
 
     IEnumerator Shake()
     {
@@ -105,32 +117,12 @@ public class Enemy : Role
     }
 
 
-
     void OnCollisionEnter2D(Collision2D collision)
     {
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerBullet"))
         {
-            hp--;
-
-            if (hp < 0)
-            {
-                Die();
-            }
-
-            else
-            {
-                if (!isShaking)
-                {
-                    StartCoroutine(Shake());
-                }
-                if (!isHit)
-                {
-                    StartCoroutine(HitPaticle(collision.contacts[0].point));
-                }
-            }
-            if (!isAudio)
-                StartCoroutine(AudioPlay());
+            BeHit(collision.contacts[0].point);
         }
     }
 

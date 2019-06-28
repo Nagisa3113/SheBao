@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class BulletController : SingletonMonoBehavior<BulletController>
 {
-
-    public int opt = 0;
-    public bulletInfo[] bulletInfos;
-
     GameObject playerBullet;
     GameObject enemyBulletYellow;
     GameObject enemyBulletRed;
 
-
+    public float randomCD = 0.4f;
+    public float roundCD = 0.4f;
+    public float arcCD = 0.4f;
 
     void Awake()
     {
@@ -22,87 +20,93 @@ public class BulletController : SingletonMonoBehavior<BulletController>
     }
 
 
-    //随机弹幕
-    public IEnumerator FireRandom(Enemy enemy)
+    //Shoot at random direction
+    public IEnumerator FireRandom(Role enemy)
     {
         Vector3 dir;
         Vector3 pos = enemy.transform.position;
-
+        float r;
+        int t;
         GameObject player = GameObject.Find("Player");
-        float x1, y1;
 
         while (true)
         {
+            r = Random.Range(-60, 60);
+            Quaternion rotateQuate = Quaternion.AngleAxis(r, Vector3.forward);
             dir = player.transform.position - enemy.transform.position;
-            x1 = Random.Range(-0.6f, 0.6f);
-            y1 = Random.Range(-0.6f, 0.6f);
-            dir.Normalize();
-            dir.x += x1;
-            dir.y += y1;
-            dir.Normalize();
+            dir = rotateQuate * dir;
 
-            int r = Random.Range(1, 3);
-            CreateBullet((BulletType)r, pos, dir);
+            t = Random.Range(1, 3);
+            CreateBullet((BulletType)t, pos, dir);
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(randomCD);
         }
     }
 
-    //圆形弹幕
-    public IEnumerator FireRound(Enemy enemy)
+    //shoot round
+    public IEnumerator FireRound(Role enemy)
     {
-
-        Vector3 offset = new Vector3(3, 0, 0);
-
-
+        Vector3 offset = new Vector3(4, 0, 0);
         BulletType bulletType = BulletType.EnemyRed;
-        Vector3 dir = enemy.transform.up;
+        Vector3 dir = Vector3.up;
         Vector3 pos;
-        Quaternion rotateQuate = Quaternion.AngleAxis(45, Vector3.forward);//使用四元数制造绕Z轴旋转10度的旋转
+        Quaternion rotateQuate = Quaternion.AngleAxis(60, Vector3.forward);
         while (true)
         {
             pos = enemy.transform.position;
-            for (int j = 0; j < 8; j++)
+            Vector3 p = pos - offset;
+            for (int i = 0; i < 3; i++)
             {
 
-                CreateBullet(bulletType, pos + offset, dir);
-                CreateBullet(bulletType, pos - offset, dir);
+                for (int j = 0; j < 6; j++)
+                {
+                    CreateBullet(bulletType, p, dir);
+                    ChangeEnemyBulletType(ref bulletType);
+                    dir = rotateQuate * dir;
+                }
+                p += offset;
 
-                ChangeEnemyBulletType(ref bulletType);
-                dir = rotateQuate * dir;
+                Quaternion r1 = Quaternion.AngleAxis(Random.Range(-30, 30), Vector3.forward);
+                dir = r1 * dir;
             }
-            yield return new WaitForSeconds(0.5f);
+
+            yield return new WaitForSeconds(roundCD);
+
         }
     }
 
-
-    //圆弧形弹幕
-    public IEnumerator FireArc(Enemy enemy)
+    //shoot round
+    public IEnumerator FireArc(Role enemy)
     {
-
-        Vector3 offset = new Vector3(3, 0, 0);
-
-
+        Vector3 offset = new Vector3(4, 0, 0);
         BulletType bulletType = BulletType.EnemyRed;
-
-        Vector3 dir = enemy.transform.up;
+        Vector3 dir = Vector3.up;
         Vector3 pos;
         Quaternion r1 = Quaternion.AngleAxis(15, Vector3.forward);
-        Quaternion rotateQuate = Quaternion.AngleAxis(90, Vector3.forward);
+        Quaternion rotateQuate = Quaternion.AngleAxis(60, Vector3.forward);
+
         while (true)
         {
             pos = enemy.transform.position;
-            for (int j = 0; j < 4; j++)
+            Vector3 p = pos - offset;
+            for (int i = 0; i < 3; i++)
             {
-                CreateBullet(bulletType, pos + offset, dir);
-                CreateBullet(bulletType, pos - offset, dir);
+                for (int j = 0; j < 6; j++)
+                {
+                    CreateBullet(bulletType, p, dir);
+                    ChangeEnemyBulletType(ref bulletType);
+                    dir = rotateQuate * dir;
+                }
 
                 ChangeEnemyBulletType(ref bulletType);
-                dir = rotateQuate * dir;
+
+                p += offset;
             }
-            yield return new WaitForSeconds(0.2f); //间隔
 
             dir = r1 * dir;
+
+            yield return new WaitForSeconds(arcCD);
+
         }
     }
 
@@ -146,13 +150,4 @@ public class BulletController : SingletonMonoBehavior<BulletController>
 
         return b.GetComponent<Bullet>();
     }
-}
-
-
-[System.Serializable]
-public struct bulletInfo
-{
-    public Vector3 vector3;
-    public int num;
-    public int rotation;
 }

@@ -10,8 +10,6 @@ public class Role : MonoBehaviour
 
     protected Vector2 moveDir;
 
-    [SerializeField]
-    protected Vector2 shootDir;
 
     [SerializeField]
     protected int hp;

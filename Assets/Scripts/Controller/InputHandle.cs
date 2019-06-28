@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InputHandle : Singleton<InputHandle>
 {
+    bool keyboard;
 
     float hl, vl;
     float hr, vr;
@@ -11,18 +12,18 @@ public class InputHandle : Singleton<InputHandle>
 
     public Vector2 GetMoveDir()
     {
-        hl = Input.GetAxis("PS4_L_Horizontal");
-        vl = Input.GetAxis("PS4_L_Vertical");
+
+        hl = Input.GetAxis("Horizontal") + Input.GetAxis("PS4_L_Horizontal");
+        vl = Input.GetAxis("Vertical") + Input.GetAxis("PS4_L_Vertical");
 
         return new Vector2(hl, vl);
     }
 
     public Vector2 GetShootDir()
     {
-        hr = Input.GetAxis("PS4_R_Horizontal");
-        vr = Input.GetAxis("PS4_R_Vertical");
+        hr = Input.GetAxis("Horizontal") + Input.GetAxis("PS4_R_Horizontal");
+        vr = Input.GetAxis("Vertical") + Input.GetAxis("PS4_R_Vertical");
 
-        //return new Vector2(hr, vr).normalized * Mathf.Sqrt(hr * hr + vr * vr);
         return new Vector2(hr, vr);
     }
 

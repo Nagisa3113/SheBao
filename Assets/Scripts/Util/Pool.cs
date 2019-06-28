@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Pool : SingletonMonoBehavior<Pool>
 {
@@ -9,7 +10,11 @@ public class Pool : SingletonMonoBehavior<Pool>
     [SerializeField]
     Dictionary<string, Queue<GameObject>> m_Pool = new Dictionary<string, Queue<GameObject>>();
 
-    [SerializeField] Dictionary<GameObject, string> m_GoTag = new Dictionary<GameObject, string>();
+    [SerializeField]
+    Dictionary<GameObject, string> m_GoTag = new Dictionary<GameObject, string>();
+
+    GameObject enemyBulletYellow;
+    GameObject enemyBulletRed;
 
 
     /// <summary>
@@ -38,7 +43,9 @@ public class Pool : SingletonMonoBehavior<Pool>
             return;
         }
 
-        go.transform.parent = CachePanel.transform;
+        //Text UI need to setParent to Canvas
+        if (go.GetComponent<Text>() == null)
+            go.transform.parent = CachePanel.transform;
         go.SetActive(false);
 
         if (m_GoTag.ContainsKey(go))
@@ -66,14 +73,6 @@ public class Pool : SingletonMonoBehavior<Pool>
         {
             go = GameObject.Instantiate<GameObject>(prefab);
             go.name = prefab.name + Time.time;
-        }
-
-
-
-        if (prefab.layer == LayerMask.NameToLayer("EnemyBulletYellow"))
-        {
-            prefab.GetComponent<SpriteRenderer>().enabled = true;
-            prefab.GetComponent<CircleCollider2D>().enabled = true;
         }
 
 
