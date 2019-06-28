@@ -66,6 +66,8 @@ public class Boss : Role
     void Die()
     {
         StopAllCoroutines();
+        GameObject.Find("AudioController").GetComponent<AudioController>().PlayDie();
+
         Pool.Instance.ReturnCacheGameObejct(this.gameObject);
         ParticleController.Instance.CreateEnemyExplosion(transform.position);
     }
@@ -73,7 +75,7 @@ public class Boss : Role
     IEnumerator AudioPlay()
     {
         isAudio = true;
-        GetComponent<AudioController>().PlayHit();
+        GameObject.Find("AudioController").GetComponent<AudioController>().PlayHit();
         for (int i = 0; i < audioCD; i++)
         {
             yield return null;

@@ -34,6 +34,7 @@ public class Enemy : Role
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerBullet"))
         {
+            GameObject.Find("AudioController").GetComponent<AudioController>().PlayDie();
             ParticleController.Instance.CreateEnemyhit(transform.position);
             StopAllCoroutines();
             Pool.Instance.ReturnCacheGameObejct(this.gameObject);

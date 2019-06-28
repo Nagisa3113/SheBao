@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6449917553308803403}
   - component: {fileID: 1645477286282951564}
   - component: {fileID: 1016725985043733697}
-  - component: {fileID: 246976302}
   m_Layer: 9
   m_Name: Boss
   m_TagString: Untagged
@@ -220,17 +219,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &246976302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1645477286282951562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 367231fc7c2d047a9b11c6205cb39e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitClip: {fileID: 8300000, guid: c87883218f15d4b8497fb0079c6a7d9e, type: 3}
-  dieClip: {fileID: 8300000, guid: 950c12b90c6b24a80b4446f7d89c3a31, type: 3}

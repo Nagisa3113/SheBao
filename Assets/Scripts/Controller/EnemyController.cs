@@ -24,11 +24,13 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
 
     private void Start()
     {
-        //InvokeRepeating("CreateEnemy", 1, 0.5f);
+        InvokeRepeating("CreateEnemy", 1, 0.5f);
     }
 
-    public void CreateEnemy(string name, Vector3 pos)
+    public void CreateEnemy()
     {
+        string name = "Director";
+        Vector3 pos = new Vector3(Random.Range(-5, 5), Random.Range(0, 5), 0);
         GameObject e;
         e = Pool.Instance.RequestCacheGameObejct(enemy);
         e.transform.position = pos;

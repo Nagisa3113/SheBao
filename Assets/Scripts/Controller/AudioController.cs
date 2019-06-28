@@ -19,7 +19,6 @@ public class AudioController : MonoBehaviour
         PlayAudioClip(dieClip);
     }
 
-
     void PlayAudioClip(AudioClip clip)
     {
         GetComponent<AudioSource>().clip = clip;
