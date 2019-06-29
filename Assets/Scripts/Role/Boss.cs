@@ -85,18 +85,17 @@ public class Boss : Role
         }
         else
         {
-            Die();
+            StopAllCoroutines();
+            GameObject.Find("AudioController").GetComponent<AudioController>().PlayDie();
+
+            Pool.Instance.ReturnCacheGameObejct(this.gameObject);
+            ParticleController.Instance.CreateEnemyExplosion(transform.position);
+            Pool.Instance.ReturnCacheGameObejct(text.gameObject);
+            ParticleController.Instance.CreateEnemyExplosion(transform.position);
+
         }
     }
 
-    void Die()
-    {
-        StopAllCoroutines();
-        GameObject.Find("AudioController").GetComponent<AudioController>().PlayDie();
-
-        Pool.Instance.ReturnCacheGameObejct(this.gameObject);
-        ParticleController.Instance.CreateEnemyExplosion(transform.position);
-    }
 
     IEnumerator AudioPlay()
     {

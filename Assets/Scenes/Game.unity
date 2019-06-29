@@ -647,11 +647,11 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -2.9782321, y: -1.6614338}
-  - {x: 2.8957222, y: -1.6186377}
-  - {x: 2.8415089, y: 1.6522537}
-  - {x: -2.9159706, y: 1.6674486}
-  - {x: -2.8887947, y: -1.664646}
+  - {x: -4.759517, y: -2.1832244}
+  - {x: 4.0832458, y: -2.7341902}
+  - {x: 3.903083, y: 2.8037918}
+  - {x: -4.085501, y: 2.8549721}
+  - {x: -4.7420516, y: -2.1324584}
 --- !u!1 &836125901
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,6 +1071,21 @@ PrefabInstance:
         type: 3}
       propertyPath: audioCD
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4672583480568618008, guid: b9169fc986f684ed5898ba83265ddb35,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b98ac435c658a4b9dadf28a6338b15c8, type: 3}
+    - target: {fileID: 724212171651025502, guid: b9169fc986f684ed5898ba83265ddb35,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7969344292386721496, guid: b9169fc986f684ed5898ba83265ddb35,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9169fc986f684ed5898ba83265ddb35, type: 3}

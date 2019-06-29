@@ -4,7 +4,7 @@ using UnityEngine;
 using Sirenix;
 using Sirenix.OdinInspector;
 
-public class SingletonMonoBehavior<T> :SerializedMonoBehaviour where T : SingletonMonoBehavior<T>
+public class SingletonMonoBehavior<T> : SerializedMonoBehaviour where T : SingletonMonoBehavior<T>
 {
     private static T instance;
 
@@ -14,25 +14,15 @@ public class SingletonMonoBehavior<T> :SerializedMonoBehaviour where T : Singlet
         {
             if (instance == null)
             {
-                GameObject gameObject = null;
+                GameObject gameObject = GameObject.Find(typeof(T).ToString()) as GameObject;
 
-                GameObject[] obj = FindObjectsOfType(typeof(GameObject)) as GameObject[];
-                foreach (GameObject child in obj)
-                {
-                    //Debug.Log(child.gameObject.name);
-                    if (child.name == typeof(T).Name)
-                    {
-                        gameObject = child;
-                        if (gameObject.GetComponent<T>() == null)
-                        {
-                            gameObject.AddComponent<T>();
-                        }
-                    }
-                }
                 if (gameObject == null)
                 {
                     gameObject = new GameObject(typeof(T).Name);
-                    gameObject.AddComponent<T>();
+                    if (gameObject.GetComponent<T>() == null)
+                    {
+                        gameObject.AddComponent<T>();
+                    }
                 }
 
                 DontDestroyOnLoad(gameObject);
