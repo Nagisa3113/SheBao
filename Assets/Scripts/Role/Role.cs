@@ -10,7 +10,6 @@ public class Role : MonoBehaviour
 
     protected Vector3 moveDir;
 
-
     [SerializeField]
     protected int hp;
     public int HP

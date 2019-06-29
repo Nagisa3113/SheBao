@@ -15,40 +15,26 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
 
 
     protected int maxEnemyNum = 8;
-    protected int maxBossNum = 3;
+    protected int maxBossNum = 1;
 
     protected int enemyNum;
     protected int bossNum;
 
-    public static Vector3[] point = new Vector3[10];
-    public static Vector3[] bossPoint = new Vector3[3];
 
     public static List<Enemy> enemylist = new List<Enemy>();
     public static List<Boss> bosslist = new List<Boss>();
 
-
-    void SetPoints()
+    private void Update()
     {
-        point[0] = new Vector3(-20, 16, 0);
-        point[1] = new Vector3(20, 16, 0);
-        point[2] = new Vector3(-30, 12, 0);
-        point[3] = new Vector3(-10, 14, 0);
-        point[4] = new Vector3(7, 9, 0);
-        point[5] = new Vector3(26, 10, 0);
-        point[6] = new Vector3(-27, 4, 0);
-        point[7] = new Vector3(-14, -2, 0);
-        point[8] = new Vector3(11, 0, 0);
-        point[9] = new Vector3(31, 2, 0);
-
-        bossPoint[0] = new Vector3(-25, 7, 0);
-        bossPoint[1] = new Vector3(2, 3, 0);
-        bossPoint[2] = new Vector3(20, 6, 0);
+        bossNum = bosslist.Count;
+        if (bossNum < maxBossNum)
+        {
+            CreateBoss();
+        }
     }
-
 
     void Awake()
     {
-        SetPoints();
 
         enemy = Resources.Load<GameObject>("Prefabs/Role/Enemy");
         boss = Resources.Load<GameObject>("Prefabs/Role/Boss");
@@ -59,7 +45,7 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
 
     private void Start()
     {
-        InvokeRepeating("CreateEnemy", 3, 1f);
+        //InvokeRepeating("CreateEnemy", 3, 1f);
     }
 
     public void CreateEnemy()
@@ -84,11 +70,17 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
     }
 
 
-    public void CreateBoss(string name, Vector3 pos)
+    public void CreateBoss()
     {
+        string name = "Boss";
+        Vector3 pos = new Vector3(Random.Range(-30, 30), Random.Range(15, 20), 0);
+
         GameObject e;
         e = Pool.Instance.RequestCacheGameObejct(boss);
         e.transform.position = pos;
+
+        bosslist.Add(e.GetComponent<Boss>());
+
 
         GameObject t;
         t = Pool.Instance.RequestCacheGameObejct(text);
@@ -100,7 +92,7 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
 
         e.transform.localScale = new Vector3(6f * txt.text.Length, 10, 1);
 
-        e.GetComponent<Enemy>().text = t.GetComponent<Text>();
+        e.GetComponent<Boss>().text = t.GetComponent<Text>();
 
     }
 

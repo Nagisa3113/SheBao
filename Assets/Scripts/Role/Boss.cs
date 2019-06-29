@@ -6,6 +6,11 @@ using UnityEngine.UI;
 
 public class Boss : Role
 {
+    bool isEnter;
+
+    Vector3 temp;
+    float tempx, tempy;
+
 
     public Text text;
 
@@ -26,6 +31,7 @@ public class Boss : Role
 
     private void Awake()
     {
+        moveSpeed = 7;
         //iEDelegate = BulletController.Instance.FireRandom;
         //iEDelegate = BulletController.Instance.FireRound;
         iEDelegate = BulletController.Instance.FireArc;
@@ -34,6 +40,15 @@ public class Boss : Role
 
     // Start is called before the first frame update
     void Start()
+    {
+        isEnter = false;
+
+        moveSpeed = 7f;
+        moveDir = (new Vector3(Random.Range(-1, 1), -1, 0)).normalized; //开始时刻移动方向
+
+    }
+
+    private void OnEnable()
     {
         StartCoroutine(iEDelegate(this));
     }
@@ -44,6 +59,17 @@ public class Boss : Role
         text.transform.position = screenPos;
     }
 
+
+    private void FixedUpdate()
+    {
+        if (!isEnter)
+        {
+            CheckInMoveField();
+        }
+        CheckInField();
+        CheckArrive();
+        transform.position += moveDir * moveSpeed * Time.fixedDeltaTime;
+    }
 
 
     void BeHit(Vector3 hitPos)
@@ -128,6 +154,43 @@ public class Boss : Role
         }
     }
 
+
+    void CheckInMoveField()
+    {
+        if (transform.position.x > -35 && transform.position.x < 35 && transform.position.y > -3 && transform.position.y < 8)
+        {
+            isEnter = true;
+        }
+    }
+
+    void CheckInField()
+    {
+        if (isEnter == false && (transform.position.x <= -35 || transform.position.x >= 35 || transform.position.y <= -5 || transform.position.y >= 20))
+        {
+            tempx = Random.Range(-35, 35);
+            tempy = Random.Range(-5, 20);
+            temp = new Vector3(tempx, tempy, 0);
+            moveDir = (temp - transform.position).normalized;
+        }
+        if (isEnter == true && (transform.position.x <= -35 || transform.position.x >= 35 || transform.position.y <= -3 || transform.position.y >= 3))
+        {
+            tempx = Random.Range(-30, 30);
+            tempy = Random.Range(-3, 8);
+            temp = new Vector3(tempx, tempy, 0);
+            moveDir = (temp - transform.position).normalized;
+        }
+    }
+
+    void CheckArrive()
+    {
+        if (Mathf.Abs(transform.position.x - temp.x) <= 1 && Mathf.Abs(transform.position.y - temp.y) <= 1)
+        {
+            tempx = Random.Range(-35, 35);
+            tempy = Random.Range(-3, 8);
+            temp = new Vector3(tempx, tempy, 0);
+            moveDir = (temp - transform.position).normalized;
+        }
+    }
 
 
 }

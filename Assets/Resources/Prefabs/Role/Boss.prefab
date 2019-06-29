@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2206001957886650723}
   - component: {fileID: 1645477286282951566}
   - component: {fileID: 6449917553308803403}
-  - component: {fileID: 1645477286282951564}
   - component: {fileID: 1016725985043733697}
+  - component: {fileID: 8085905234970158403}
   m_Layer: 9
   m_Name: Boss
   m_TagString: Untagged
@@ -156,21 +156,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1645477286282951564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1645477286282951562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4405cbe325a0541ebb28b00abdfe5648, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 0
-  hp: 9999
-  text: {fileID: 0}
 --- !u!212 &1016725985043733697
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -219,3 +204,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8085905234970158403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1645477286282951562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490f5914dd35545a680f37ce08ba8d1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  hp: 908907
+  text: {fileID: 0}
+  shakeScale: 0.2
+  freq: 1
+  shakeCD: 8
+  hitCD: 14
+  audioCD: 5
