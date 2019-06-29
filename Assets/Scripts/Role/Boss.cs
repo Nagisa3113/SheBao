@@ -85,6 +85,8 @@ public class Boss : Role
         }
         else
         {
+            EnemyController.bosslist.Remove(this);
+
             StopAllCoroutines();
             GameObject.Find("AudioController").GetComponent<AudioController>().PlayDie();
 

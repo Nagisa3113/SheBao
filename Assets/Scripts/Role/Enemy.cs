@@ -57,6 +57,8 @@ public class Enemy : Role
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerBullet"))
         {
+            EnemyController.enemylist.Remove(this);
+
             GameObject.Find("AudioController").GetComponent<AudioController>().PlayDie();
             ParticleController.Instance.CreateEnemyhit(transform.position);
             StopAllCoroutines();

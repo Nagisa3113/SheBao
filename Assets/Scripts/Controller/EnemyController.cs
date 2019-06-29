@@ -56,6 +56,8 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
         e = Pool.Instance.RequestCacheGameObejct(enemy);
         e.transform.position = pos;
 
+        enemylist.Add(e.GetComponent<Enemy>());
+
         GameObject t;
         t = Pool.Instance.RequestCacheGameObejct(text);
         t.transform.SetParent(canvas.transform);
