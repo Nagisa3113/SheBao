@@ -8,7 +8,7 @@ public class Role : MonoBehaviour
     [SerializeField]
     protected float moveSpeed;
 
-    protected Vector2 moveDir;
+    protected Vector3 moveDir;
 
 
     [SerializeField]

@@ -24,7 +24,6 @@ public class BulletController : SingletonMonoBehavior<BulletController>
     public IEnumerator FireRandom(Role enemy)
     {
         Vector3 dir;
-        Vector3 pos = enemy.transform.position;
         float r;
         int t;
         GameObject player = GameObject.Find("Player");
@@ -37,7 +36,7 @@ public class BulletController : SingletonMonoBehavior<BulletController>
             dir = rotateQuate * dir;
 
             t = Random.Range(1, 3);
-            CreateBullet((BulletType)t, pos, dir);
+            CreateBullet((BulletType)t, enemy.transform.position, dir);
 
             yield return new WaitForSeconds(randomCD);
         }

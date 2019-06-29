@@ -321,6 +321,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1766839298821188822, guid: 834b7640c522d444b8d6dcd7eda11cdd,
+        type: 3}
+      propertyPath: speed
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 834b7640c522d444b8d6dcd7eda11cdd, type: 3}
 --- !u!1 &147105377
@@ -455,6 +460,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1766839298821188822, guid: 2cc3d170697474d43ba3cfda6e3da833,
+        type: 3}
+      propertyPath: speed
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cc3d170697474d43ba3cfda6e3da833, type: 3}
@@ -740,7 +750,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  randomCD: 0.4
+  randomCD: 0.7
   roundCD: 0.4
   arcCD: 0.4
 --- !u!1 &1165146754 stripped

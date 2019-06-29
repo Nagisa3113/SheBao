@@ -11,6 +11,12 @@ public class Enemy : Role
     delegate IEnumerator IEDelegate(Enemy enemy);
     IEDelegate iEDelegate = null;
 
+    public int index; //记录随机点
+    //int temp; //改变随机点
+    Vector3 temp;
+
+    float tempx, tempy;
+
     private void Awake()
     {
         iEDelegate = BulletController.Instance.FireRandom;
@@ -19,8 +25,25 @@ public class Enemy : Role
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(iEDelegate(this));
+        moveSpeed = 12f;
+        moveDir = (new Vector3(Random.Range(-30, 30), Random.Range(-100, 0), 0)).normalized; //开始时刻移动方向
+
     }
+
+    private void OnEnable()
+    {
+        StartCoroutine(iEDelegate(this));
+
+    }
+
+    private void FixedUpdate()
+    {
+        CheckInField();
+        CheckArrive();
+        transform.position += moveDir * moveSpeed * Time.fixedDeltaTime;
+    }
+
+
 
     private void Update()
     {
@@ -45,5 +68,28 @@ public class Enemy : Role
     }
 
 
+    void CheckInField()
+    {
+        if (transform.position.x <= -35 || transform.position.x >= 35 || transform.position.y <= -5 || transform.position.y >= 20)
+        {
+            //temp = Random.Range(0, EnemyController.point.Length);
+            //index = temp;
+            //moveDir = (EnemyController.point[index] - transform.position).normalized;
+            tempx = Random.Range(-35, 35);
+            tempy = Random.Range(-5, 20);
+            temp = new Vector3(tempx, tempy, 0);
+            moveDir = (temp - transform.position).normalized;
+        }
+    }
 
+    void CheckArrive()
+    {
+        if (Mathf.Abs(transform.position.x - temp.x) <= 1 && Mathf.Abs(transform.position.y - temp.y) <= 1)
+        {
+            tempx = Random.Range(-35, 35);
+            tempy = Random.Range(-5, 20);
+            temp = new Vector3(tempx, tempy, 0);
+            moveDir = (temp - transform.position).normalized;
+        }
+    }
 }

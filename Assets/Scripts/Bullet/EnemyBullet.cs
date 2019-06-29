@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyBullet : Bullet
 {
 
+    
     public override void FixedUpdate()
     {
         base.FixedUpdate();

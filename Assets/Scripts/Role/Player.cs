@@ -19,8 +19,6 @@ public class Player : Role
     public int audioCD = 14;
     bool isAudio;
 
-    public int movespeedlow;
-
     public GameObject partMove;
     public GameObject partDie;
 
@@ -32,7 +30,7 @@ public class Player : Role
 
     private void Start()
     {
-        InvokeRepeating("Shoot", 1, shootCD);
+        InvokeRepeating("Shoot", 2, shootCD);
         //CancelInvoke();
     }
 
@@ -106,7 +104,7 @@ public class Player : Role
 
     void SpriteUpdate()
     {
-        if (GetComponent<Rigidbody2D>().velocity.sqrMagnitude > movespeedlow)
+        if (GetComponent<Rigidbody2D>().velocity.sqrMagnitude > 5)
         {
             if (!partMove.gameObject.GetComponent<ParticleSystem>().isPlaying)
                 partMove.gameObject.GetComponent<ParticleSystem>().Play();
