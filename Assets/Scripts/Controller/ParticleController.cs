@@ -33,7 +33,9 @@ public class ParticleController : SingletonMonoBehavior<ParticleController>
         particleObjects.Add(go);
         go.transform.SetParent(this.transform);
         go.transform.position = pos;
+        go.GetComponent<ParticleSystem>().Stop();
         go.GetComponent<ParticleSystem>().Play();
+
     }
 
     private void Update()

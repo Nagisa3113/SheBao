@@ -222,5 +222,5 @@ MonoBehaviour:
   shakeScale: 0.2
   freq: 1
   shakeCD: 8
-  hitCD: 14
+  hitCD: 10
   audioCD: 5

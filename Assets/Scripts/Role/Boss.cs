@@ -47,6 +47,9 @@ public class Boss : Role
 
     private void OnEnable()
     {
+        isShaking = false;
+        isHit = false;
+        isAudio = false;
         hp = 20;
         StartCoroutine(iEDelegate(this));
     }
@@ -87,11 +90,10 @@ public class Boss : Role
 
             StopAllCoroutines();
             GameObject.Find("AudioController").GetComponent<AudioController>().PlayDie();
+            ParticleController.Instance.CreateEnemyExplosion(transform.position);
 
             Pool.Instance.ReturnCacheGameObejct(this.gameObject);
-            ParticleController.Instance.CreateEnemyExplosion(transform.position);
             Pool.Instance.ReturnCacheGameObejct(text.gameObject);
-            ParticleController.Instance.CreateEnemyExplosion(transform.position);
 
         }
     }

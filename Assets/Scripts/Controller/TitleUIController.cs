@@ -21,8 +21,8 @@ public class TitleUIController : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-        StartCoroutine(ColorGradient(t1, 1, 6, 1));
-        StartCoroutine(ColorGradient(t2, 3, 6, 1));
+        StartCoroutine(ColorGradient(t1, 1, 8, 1));
+        StartCoroutine(ColorGradient(t2, 3, 8, 1));
         StartCoroutine(NextScence(8));
     }
 

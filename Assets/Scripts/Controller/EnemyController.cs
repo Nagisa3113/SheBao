@@ -13,19 +13,10 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
 
     public string[] enemyNames;
 
-
-    protected int maxEnemyNum = 8;
-    protected int maxBossNum = 1;
-
-    protected int enemyNum;
-    protected int bossNum;
-
-
     public int bossIndex = 0;
 
     public static List<Enemy> enemylist = new List<Enemy>();
     public static List<Boss> bosslist = new List<Boss>();
-
 
 
     void Awake()
@@ -37,51 +28,83 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
         canvas = GameObject.Find("Canvas");
         text = Resources.Load<GameObject>("Prefabs/Role/Text");
     }
-
     private void Start()
     {
         StartCoroutine(SpawnEnemy(2));
-        StartCoroutine(SpawnBoss(16));
+        StartCoroutine(SpawnBoss(10, 60));
+        StartCoroutine(SpawnBoss(50, 70));
+        StartCoroutine(SpawnBoss(80, 80));
+        StartCoroutine(SpawnBoss(120, 100));
+        StartCoroutine(SpawnBoss(160, 110));
+        StartCoroutine(SpawnBoss(220, 120));
+        StartCoroutine(SpawnBoss(260, 130));
+        StartCoroutine(SpawnBoss(300, 180));
+
     }
-
-
-    private void Update()
-    {
-
-    }
-
 
 
     IEnumerator SpawnEnemy(float startTime)
     {
+        int maxEnemyNum = 10;
+
+
         for (float t = 0; t < startTime; t += Time.deltaTime)
         {
             yield return 0;
         }
-        CreateEnemy();
-        CreateEnemy();
-        CreateEnemy();
 
-        for (int i = 0; i < 20; i++)
+        CreateEnemy();
+        yield return new WaitForSeconds(0.5f);
+
+        CreateEnemy();
+        yield return new WaitForSeconds(0.5f);
+
+        CreateEnemy();
+        yield return new WaitForSeconds(0.5f);
+
+
+        while (true)
         {
-            for (float j = 0; j < 0.8f; j += Time.deltaTime)
+
+            if (bosslist.Count > 0)
             {
-                yield return 0;
+                for (int i = 0; i < bossIndex + 3; i++)
+                {
+                    CreateEnemy();
+                    yield return new WaitForSeconds(1.5f);
+
+                }
+
+                while (bosslist.Count > 0)
+                {
+                    yield return 0;
+                }
             }
-            CreateEnemy();
-            CreateEnemy();
+
+            if (enemylist.Count < maxEnemyNum)
+            {
+                CreateEnemy();
+
+                yield return new WaitForSeconds(0.8f);
+            }
 
         }
+
 
     }
 
-    IEnumerator SpawnBoss(float startTime)
+    IEnumerator SpawnBoss(float startTime, int hp)
     {
+
+        while (bosslist.Count > 0)
+        {
+            yield return 0;
+        }
         for (float t = 0; t < startTime; t += Time.deltaTime)
         {
             yield return 0;
         }
-        CreateBoss(enemyNames[bossIndex++], 50);
+        CreateBoss(enemyNames[bossIndex++], hp);
 
     }
 
