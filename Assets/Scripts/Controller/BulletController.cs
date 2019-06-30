@@ -11,6 +11,7 @@ public class BulletController : SingletonMonoBehavior<BulletController>
     public float randomCD = 0.4f;
     public float roundCD = 0.4f;
     public float arcCD = 0.4f;
+    public Vector3 offset = new Vector3(4, 0, 0);
 
     void Awake()
     {
@@ -27,6 +28,10 @@ public class BulletController : SingletonMonoBehavior<BulletController>
         float r;
         int t;
         GameObject player = GameObject.Find("Player");
+        for (float i = 0; i < 1; i += Time.fixedDeltaTime)
+        {
+            yield return 0;
+        }
 
         while (true)
         {
@@ -45,11 +50,19 @@ public class BulletController : SingletonMonoBehavior<BulletController>
     //shoot round
     public IEnumerator FireRound(Role enemy)
     {
-        Vector3 offset = new Vector3(4, 0, 0);
         BulletType bulletType = BulletType.EnemyRed;
         Vector3 dir = Vector3.up;
         Vector3 pos;
         Quaternion rotateQuate = Quaternion.AngleAxis(60, Vector3.forward);
+
+
+
+        for (float i = 0; i < 1; i += Time.fixedDeltaTime)
+        {
+            yield return 0;
+        }
+
+
         while (true)
         {
             pos = enemy.transform.position;
@@ -77,12 +90,15 @@ public class BulletController : SingletonMonoBehavior<BulletController>
     //shoot round
     public IEnumerator FireArc(Role enemy)
     {
-        Vector3 offset = new Vector3(4, 0, 0);
         BulletType bulletType = BulletType.EnemyRed;
         Vector3 dir = Vector3.up;
         Vector3 pos;
         Quaternion r1 = Quaternion.AngleAxis(15, Vector3.forward);
         Quaternion rotateQuate = Quaternion.AngleAxis(60, Vector3.forward);
+        for (float i = 0; i < 1; i += Time.fixedDeltaTime)
+        {
+            yield return 0;
+        }
 
         while (true)
         {

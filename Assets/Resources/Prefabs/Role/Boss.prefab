@@ -216,8 +216,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 490f5914dd35545a680f37ce08ba8d1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  hp: 908907
+  moveSpeed: 6
+  hp: 35
   text: {fileID: 0}
   shakeScale: 0.2
   freq: 1

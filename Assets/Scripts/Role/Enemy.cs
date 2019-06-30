@@ -25,15 +25,12 @@ public class Enemy : Role
     // Start is called before the first frame update
     void Start()
     {
-        moveSpeed = 12f;
         moveDir = (new Vector3(Random.Range(-30, 30), Random.Range(-100, 0), 0)).normalized; //开始时刻移动方向
-
     }
 
     private void OnEnable()
     {
         StartCoroutine(iEDelegate(this));
-
     }
 
     private void FixedUpdate()

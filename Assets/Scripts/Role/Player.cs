@@ -30,7 +30,7 @@ public class Player : Role
 
     private void Start()
     {
-        InvokeRepeating("Shoot", 2, shootCD);
+        InvokeRepeating("Shoot", 1, shootCD);
         //CancelInvoke();
     }
 

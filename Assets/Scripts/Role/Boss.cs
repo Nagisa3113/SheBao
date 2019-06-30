@@ -31,10 +31,9 @@ public class Boss : Role
 
     private void Awake()
     {
-        moveSpeed = 7;
         //iEDelegate = BulletController.Instance.FireRandom;
-        //iEDelegate = BulletController.Instance.FireRound;
-        iEDelegate = BulletController.Instance.FireArc;
+        iEDelegate = BulletController.Instance.FireRound;
+        //iEDelegate = BulletController.Instance.FireArc;
 
     }
 
@@ -42,14 +41,13 @@ public class Boss : Role
     void Start()
     {
         isEnter = false;
-
         moveSpeed = 7f;
         moveDir = (new Vector3(Random.Range(-1, 1), -1, 0)).normalized; //开始时刻移动方向
-
     }
 
     private void OnEnable()
     {
+        hp = 20;
         StartCoroutine(iEDelegate(this));
     }
 
