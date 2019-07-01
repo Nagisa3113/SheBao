@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Background : MonoBehaviour
 {
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,20 +14,18 @@ public class Background : MonoBehaviour
 
 
 
-    public void GameOver()
+    public void NextScene(int num)
     {
         StartCoroutine(AlphaGradient(1, 1f));
-        StartCoroutine(Next());
+        StartCoroutine(Next(num));
     }
 
 
-    IEnumerator Next()
+    IEnumerator Next(int num)
     {
         yield return new WaitForSeconds(2f);
-        UnityEngine.SceneManagement.SceneManager.LoadScene(2);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(num);
     }
-
-
 
 
     IEnumerator AlphaGradient(int n, float time)

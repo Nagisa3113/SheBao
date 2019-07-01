@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Checkmark : MonoBehaviour
 {
@@ -13,10 +14,19 @@ public class Checkmark : MonoBehaviour
     public Transform t2;
     int opt = 0;
 
+    public Text text;
+
+
+    public string[] strings;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
+        int r = Random.Range(0, strings.Length + 1);
 
+        text.text = strings[r];
     }
 
     // Update is called once per frame
@@ -74,11 +84,11 @@ public class Checkmark : MonoBehaviour
             {
                 case 1:
                     WingmanController.callWingman = false;
-                    SceneManager.LoadScene(1);
+                    GameObject.Find("Background").GetComponent<Background>().NextScene(1);
                     break;
                 case 2:
                     WingmanController.callWingman = true;
-                    SceneManager.LoadScene(1);
+                    GameObject.Find("Background").GetComponent<Background>().NextScene(1);
                     //Application.Quit();
                     break;
                 default:
@@ -88,9 +98,19 @@ public class Checkmark : MonoBehaviour
     }
 
 
+    IEnumerator ReStart()
+    {
+
+
+
+        yield return 0;
+    }
+
+
+
     IEnumerator OptionMoveLeft(GameObject go)
     {
-        for(float i = 0; i < 0.3f; i+=Time.deltaTime)
+        for (float i = 0; i < 0.3f; i += Time.deltaTime)
         {
             go.transform.position += new Vector3(-3, 0, 0);
             yield return 0;

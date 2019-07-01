@@ -75,7 +75,6 @@ public class Pool : SingletonMonoBehavior<Pool>
             go.name = prefab.name + Time.time;
         }
 
-
         MarkAsOut(go, tag);
         return go;
     }

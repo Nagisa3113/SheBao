@@ -12,7 +12,7 @@ public class Enemy : Role
     IEDelegate iEDelegate = null;
 
     public int index; //记录随机点
-    //int temp; //改变随机点
+
     Vector3 temp;
 
     float tempx, tempy;
@@ -26,11 +26,18 @@ public class Enemy : Role
     void Start()
     {
         moveDir = (new Vector3(Random.Range(-30, 30), Random.Range(-100, 0), 0)).normalized; //开始时刻移动方向
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        text.transform.position = screenPos;
     }
 
     private void OnEnable()
     {
         StartCoroutine(iEDelegate(this));
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
     private void FixedUpdate()
@@ -39,7 +46,6 @@ public class Enemy : Role
         CheckArrive();
         transform.position += moveDir * moveSpeed * Time.fixedDeltaTime;
     }
-
 
 
     private void Update()
@@ -54,11 +60,11 @@ public class Enemy : Role
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerBullet"))
         {
-            EnemyController.enemylist.Remove(this);
+            EnemyController.Instance.enemylist.Remove(this);
 
             GameObject.Find("AudioController").GetComponent<AudioController>().PlayDie();
             ParticleController.Instance.CreateEnemyhit(transform.position);
-            StopAllCoroutines();
+
             Pool.Instance.ReturnCacheGameObejct(this.gameObject);
             Pool.Instance.ReturnCacheGameObejct(text.gameObject);
             ParticleController.Instance.CreateEnemyExplosion(transform.position);

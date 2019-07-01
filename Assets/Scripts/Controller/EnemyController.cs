@@ -15,8 +15,8 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
 
     public int bossIndex = 0;
 
-    public static List<Enemy> enemylist = new List<Enemy>();
-    public static List<Boss> bosslist = new List<Boss>();
+    public List<Enemy> enemylist;
+    public List<Boss> bosslist;
 
 
     void Awake()
@@ -27,9 +27,18 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
 
         canvas = GameObject.Find("Canvas");
         text = Resources.Load<GameObject>("Prefabs/Role/Text");
-
     }
     private void Start()
+    {
+        enemylist = new List<Enemy>();
+        bosslist = new List<Boss>();
+    }
+
+
+
+
+
+    private void OnEnable()
     {
         StartCoroutine(SpawnEnemy(2));
         StartCoroutine(SpawnBoss(10, 60));
@@ -125,6 +134,7 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
 
         GameObject t;
         t = Pool.Instance.RequestCacheGameObejct(text);
+        e.GetComponent<Enemy>().text = t.GetComponent<Text>();
         t.transform.SetParent(GameObject.Find("EnemyTexts").transform);
 
         Text txt = t.GetComponent<Text>();
@@ -153,6 +163,7 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
 
         GameObject t;
         t = Pool.Instance.RequestCacheGameObejct(text);
+        e.GetComponent<Boss>().text = t.GetComponent<Text>();
         t.transform.SetParent(GameObject.Find("EnemyTexts").transform);
 
         Text txt = t.GetComponent<Text>();
@@ -161,7 +172,6 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
 
         e.transform.localScale = new Vector3(6f * txt.text.Length, 10, 1);
 
-        e.GetComponent<Boss>().text = t.GetComponent<Text>();
 
     }
 

@@ -127,7 +127,7 @@ public class Player : Role
             partDie.gameObject.GetComponent<ParticleSystem>().Play();
             if (hp < 0)
             {
-                GameObject.Find("Background").GetComponent<Background>().GameOver();
+                GameObject.Find("Background").GetComponent<Background>().NextScene(2);
                 Destroy(gameObject, 0.5f);
             }
             else if (hp < 3)

@@ -43,6 +43,8 @@ public class Boss : Role
         isEnter = false;
         moveSpeed = 7f;
         moveDir = (new Vector3(Random.Range(-1, 1), -1, 0)).normalized; //开始时刻移动方向
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        text.transform.position = screenPos;
     }
 
     private void OnEnable()
@@ -52,6 +54,11 @@ public class Boss : Role
         isAudio = false;
         hp = 20;
         StartCoroutine(iEDelegate(this));
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
     private void Update()
@@ -86,9 +93,8 @@ public class Boss : Role
         }
         else
         {
-            EnemyController.bosslist.Remove(this);
+            EnemyController.Instance.bosslist.Remove(this);
 
-            StopAllCoroutines();
             GameObject.Find("AudioController").GetComponent<AudioController>().PlayDie();
             ParticleController.Instance.CreateEnemyExplosion(transform.position);
 
