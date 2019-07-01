@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Player : Role
 {
@@ -30,7 +29,7 @@ public class Player : Role
 
     private void Start()
     {
-        InvokeRepeating("Shoot", 1, shootCD);
+        InvokeRepeating("Shoot", 2, shootCD);
         //CancelInvoke();
     }
 
@@ -128,8 +127,8 @@ public class Player : Role
             partDie.gameObject.GetComponent<ParticleSystem>().Play();
             if (hp < 0)
             {
+                GameObject.Find("Background").GetComponent<Background>().GameOver();
                 Destroy(gameObject, 0.5f);
-
             }
             else if (hp < 3)
             {
@@ -138,8 +137,6 @@ public class Player : Role
             }
         }
     }
-
-
 
 
 

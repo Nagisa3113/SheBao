@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class WingmanController : MonoBehaviour
 {
-    public GameObject player;
     public GameObject wingman;
-    public bool callWingman;
+    public static bool callWingman;
 
     List<GameObject> wings = new List<GameObject>();
 
@@ -26,8 +25,8 @@ public class GameController : MonoBehaviour
             {
                 GameObject go = Instantiate(wingman);
                 wings.Add(go);
-                go.transform.SetParent(player.transform);
-                go.transform.position = player.transform.position + dir * wingmanRaduis;
+                go.transform.SetParent(gameObject.transform);
+                go.transform.position = gameObject.transform.position + dir * wingmanRaduis;
                 dir = r1 * dir;
             }
         }
@@ -41,8 +40,8 @@ public class GameController : MonoBehaviour
         {
             foreach (GameObject go in wings)
             {
-                go.transform.position = player.transform.position + dir * wingmanRaduis;
-                go.transform.up = player.transform.up;
+                go.transform.position = gameObject.transform.position + dir * wingmanRaduis;
+                go.transform.up = gameObject.transform.up;
                 dir = r1 * dir;
 
             }

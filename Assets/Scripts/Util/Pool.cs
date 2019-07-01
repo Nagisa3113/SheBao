@@ -35,7 +35,7 @@ public class Pool : SingletonMonoBehavior<Pool>
         if (CachePanel == null)
         {
             CachePanel = new GameObject("CachePanel");
-            GameObject.DontDestroyOnLoad(CachePanel);
+            //GameObject.DontDestroyOnLoad(CachePanel);
         }
 
         if (go == null)

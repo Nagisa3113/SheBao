@@ -27,7 +27,6 @@ public class BulletController : SingletonMonoBehavior<BulletController>
         Vector3 dir;
         float r;
         int t;
-        GameObject player = GameObject.Find("Player");
         for (float i = 0; i < 1; i += Time.fixedDeltaTime)
         {
             yield return 0;
@@ -35,9 +34,9 @@ public class BulletController : SingletonMonoBehavior<BulletController>
 
         while (true)
         {
-            r = Random.Range(-60, 60);
+            dir = Vector3.down;
+            r = Random.Range(-120, 120);
             Quaternion rotateQuate = Quaternion.AngleAxis(r, Vector3.forward);
-            dir = player.transform.position - enemy.transform.position;
             dir = rotateQuate * dir;
 
             t = Random.Range(1, 3);

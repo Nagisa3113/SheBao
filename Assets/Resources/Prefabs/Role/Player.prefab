@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 4672583480568618008}
   - component: {fileID: 724212171651025502}
   - component: {fileID: 4781484713156677764}
+  - component: {fileID: 417997650860557425}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -62,7 +63,7 @@ Transform:
   m_GameObject: {fileID: 7714133704738929040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children:
   - {fileID: 1973856908696615036}
   - {fileID: 573292702999231306}
@@ -273,8 +274,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 9
+  hp: 2
   shootDir: {x: 0, y: 0}
-  hp: 1257
   sprites:
   - {fileID: 21300000, guid: 80a11c025edba4e39af27a45bee7a724, type: 3}
   - {fileID: 21300000, guid: 0ebe30c714182415491aaaeeb0f23f44, type: 3}
@@ -282,9 +283,23 @@ MonoBehaviour:
   subSprite: {fileID: 2469316154996246251}
   shootCD: 0.1
   shootPosOffset: 3
-  movespeedlow: 0
+  audioCD: 2
   partMove: {fileID: 3851271940669003073}
   partDie: {fileID: 3368630238454243121}
+--- !u!114 &417997650860557425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7714133704738929040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be206a0b4d6c47269ca4ade5dbeae41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wingman: {fileID: 0}
+  callWingman: 0
 --- !u!1 &7969344292386721496
 GameObject:
   m_ObjectHideFlags: 0

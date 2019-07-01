@@ -25,7 +25,7 @@ public class SingletonMonoBehavior<T> : SerializedMonoBehaviour where T : Single
                     }
                 }
 
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
                 instance = gameObject.GetComponent<T>();
             }
 

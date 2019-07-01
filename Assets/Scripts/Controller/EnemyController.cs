@@ -27,6 +27,7 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
 
         canvas = GameObject.Find("Canvas");
         text = Resources.Load<GameObject>("Prefabs/Role/Text");
+
     }
     private void Start()
     {
@@ -118,12 +119,13 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
         GameObject e;
         e = Pool.Instance.RequestCacheGameObejct(enemy);
         e.transform.position = pos;
+        e.transform.SetParent(this.gameObject.transform);
 
         enemylist.Add(e.GetComponent<Enemy>());
 
         GameObject t;
         t = Pool.Instance.RequestCacheGameObejct(text);
-        t.transform.SetParent(canvas.transform);
+        t.transform.SetParent(GameObject.Find("EnemyTexts").transform);
 
         Text txt = t.GetComponent<Text>();
         txt.text = name;
@@ -142,6 +144,8 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
         GameObject e;
         e = Pool.Instance.RequestCacheGameObejct(boss);
         e.transform.position = pos;
+        e.transform.SetParent(this.gameObject.transform);
+
         e.GetComponent<Boss>().HP = hp;
 
         bosslist.Add(e.GetComponent<Boss>());
@@ -149,7 +153,7 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
 
         GameObject t;
         t = Pool.Instance.RequestCacheGameObejct(text);
-        t.transform.SetParent(canvas.transform);
+        t.transform.SetParent(GameObject.Find("EnemyTexts").transform);
 
         Text txt = t.GetComponent<Text>();
         txt.text = name;
