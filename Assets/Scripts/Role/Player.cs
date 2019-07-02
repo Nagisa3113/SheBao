@@ -29,8 +29,7 @@ public class Player : Role
 
     private void Start()
     {
-        InvokeRepeating("Shoot", 2, shootCD);
-        //CancelInvoke();
+        StartCoroutine(Shoot());
     }
 
     void FixedUpdate()
@@ -46,17 +45,23 @@ public class Player : Role
     }
 
 
-    public void Shoot()
+    IEnumerator Shoot()
     {
-        Vector3 dir = transform.up;
-        Vector3 pos = gameObject.transform.position + dir.normalized * shootPosOffset;
+        yield return new WaitForSeconds(1f);
+        while (true)
+        {
+            Vector3 dir = transform.up;
+            Vector3 pos = gameObject.transform.position + dir.normalized * shootPosOffset;
 
-        BulletController.Instance.CreateBullet(BulletType.Player, pos, dir);
+            BulletController.Instance.CreateBullet(BulletType.Player, pos, dir);
 
-        if (!isAudio)
-            StartCoroutine(AudioPlay());
+            if (!isAudio)
+                StartCoroutine(AudioPlay());
 
+            yield return new WaitForSeconds(shootCD);
+        }
     }
+
 
     void PhysicsUpdate()
     {
@@ -124,6 +129,8 @@ public class Player : Role
             || collision.gameObject.layer == LayerMask.NameToLayer("EnemyBulletYellow"))
         {
             hp--;
+
+            GameObject.Find("AudioHit").GetComponent<AudioSource>().Play();
             partDie.gameObject.GetComponent<ParticleSystem>().Play();
             if (hp < 0)
             {

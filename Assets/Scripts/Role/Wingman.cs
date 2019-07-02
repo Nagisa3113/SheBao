@@ -21,8 +21,8 @@ public class Wingman : MonoBehaviour
     private void Start()
     {
         player = GameObject.Find("Player");
-        InvokeRepeating("Shoot", 1, shootCD);
-        //CancelInvoke();
+
+        StartCoroutine(Shoot());
     }
 
     private void Update()
@@ -34,10 +34,19 @@ public class Wingman : MonoBehaviour
     }
 
 
-    public void Shoot()
+    IEnumerator Shoot()
     {
-        dir = transform.up;
-        pos = gameObject.transform.position + dir.normalized * shootPosOffset;
-        BulletController.Instance.CreateBullet(BulletType.Player, pos, dir);
+        yield return new WaitForSeconds(1f);
+
+        while (true)
+        {
+            Vector3 dir = transform.up;
+            Vector3 pos = gameObject.transform.position + dir.normalized * shootPosOffset;
+
+            BulletController.Instance.CreateBullet(BulletType.Player, pos, dir);
+
+            yield return new WaitForSeconds(shootCD);
+        }
     }
+
 }

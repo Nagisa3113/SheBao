@@ -534,11 +534,11 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -3.0733008, y: -1.7508608}
-  - {x: 3.0455735, y: -1.6965188}
-  - {x: 3.0017846, y: 1.7399311}
-  - {x: -3.0478284, y: 1.7740647}
-  - {x: -3.0558352, y: -1.7433325}
+  - {x: -2.9481118, y: -1.6048075}
+  - {x: 2.9412503, y: -1.6547896}
+  - {x: 2.9183261, y: 1.8233908}
+  - {x: -2.92264, y: 1.8157942}
+  - {x: -2.9515119, y: -1.6598738}
 --- !u!1 &883962840
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,7 +591,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  randomCD: 1
+  randomCD: 0.8
   roundCD: 0.6
   arcCD: 0.6
   offset: {x: 4, y: 0, z: 0}
@@ -1116,22 +1116,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 417997650860557425, guid: b9169fc986f684ed5898ba83265ddb35,
-        type: 3}
-      propertyPath: callWingman
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 417997650860557425, guid: b9169fc986f684ed5898ba83265ddb35,
-        type: 3}
-      propertyPath: wingman
-      value: 
-      objectReference: {fileID: 7714133704738929040, guid: 17f825a3500aa4e23b2a8854a06e2b65,
-        type: 3}
-    - target: {fileID: 4781484713156677764, guid: b9169fc986f684ed5898ba83265ddb35,
-        type: 3}
-      propertyPath: hp
-      value: 555
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9169fc986f684ed5898ba83265ddb35, type: 3}

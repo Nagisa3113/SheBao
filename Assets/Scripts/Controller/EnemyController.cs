@@ -38,19 +38,17 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
 
 
 
-
-
     private void OnEnable()
     {
         StartCoroutine(SpawnEnemy(2));
         StartCoroutine(SpawnBoss(10, 60));
-        StartCoroutine(SpawnBoss(50, 70));
-        StartCoroutine(SpawnBoss(80, 80));
-        StartCoroutine(SpawnBoss(120, 100));
-        StartCoroutine(SpawnBoss(160, 110));
-        StartCoroutine(SpawnBoss(220, 120));
-        StartCoroutine(SpawnBoss(260, 130));
-        StartCoroutine(SpawnBoss(300, 180));
+        StartCoroutine(SpawnBoss(37, 80));
+        StartCoroutine(SpawnBoss(70, 100));
+        StartCoroutine(SpawnBoss(100, 120));
+        StartCoroutine(SpawnBoss(140, 120));
+        StartCoroutine(SpawnBoss(180, 120));
+        StartCoroutine(SpawnBoss(230, 150));
+        StartCoroutine(SpawnBoss(280, 200));
 
     }
 
@@ -66,14 +64,16 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
         }
 
         CreateEnemy();
-        yield return new WaitForSeconds(0.5f);
+        CreateEnemy();
+        CreateEnemy();
 
         CreateEnemy();
         yield return new WaitForSeconds(0.5f);
 
         CreateEnemy();
         yield return new WaitForSeconds(0.5f);
-
+        CreateEnemy();
+        yield return new WaitForSeconds(0.5f);
 
         while (true)
         {
@@ -97,7 +97,7 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
             {
                 CreateEnemy();
 
-                yield return new WaitForSeconds(0.8f);
+                yield return new WaitForSeconds(0.6f);
             }
 
         }

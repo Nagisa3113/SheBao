@@ -8,9 +8,9 @@ public class BulletController : SingletonMonoBehavior<BulletController>
     GameObject enemyBulletYellow;
     GameObject enemyBulletRed;
 
-    public float randomCD = 0.4f;
-    public float roundCD = 0.4f;
-    public float arcCD = 0.4f;
+    public float randomCD;
+    public float roundCD;
+    public float arcCD;
     public Vector3 offset = new Vector3(4, 0, 0);
 
     void Awake()
@@ -27,10 +27,7 @@ public class BulletController : SingletonMonoBehavior<BulletController>
         Vector3 dir;
         float r;
         int t;
-        for (float i = 0; i < 1; i += Time.fixedDeltaTime)
-        {
-            yield return 0;
-        }
+        yield return new WaitForSeconds(0.5f);
 
         while (true)
         {
@@ -55,12 +52,7 @@ public class BulletController : SingletonMonoBehavior<BulletController>
         Quaternion rotateQuate = Quaternion.AngleAxis(60, Vector3.forward);
 
 
-
-        for (float i = 0; i < 1; i += Time.fixedDeltaTime)
-        {
-            yield return 0;
-        }
-
+        yield return new WaitForSeconds(1f);
 
         while (true)
         {
@@ -94,10 +86,8 @@ public class BulletController : SingletonMonoBehavior<BulletController>
         Vector3 pos;
         Quaternion r1 = Quaternion.AngleAxis(10, Vector3.forward);
         Quaternion rotateQuate = Quaternion.AngleAxis(60, Vector3.forward);
-        for (float i = 0; i < 1; i += Time.fixedDeltaTime)
-        {
-            yield return 0;
-        }
+
+        yield return new WaitForSeconds(1f);
 
         while (true)
         {
@@ -119,7 +109,7 @@ public class BulletController : SingletonMonoBehavior<BulletController>
 
             dir = r1 * dir;
 
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(arcCD);
 
         }
     }

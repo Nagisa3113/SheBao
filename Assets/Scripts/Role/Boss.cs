@@ -32,8 +32,20 @@ public class Boss : Role
     private void Awake()
     {
         //iEDelegate = BulletController.Instance.FireRandom;
-       // iEDelegate = BulletController.Instance.FireRound;
-        iEDelegate = BulletController.Instance.FireArc;
+        int r = Random.Range(0, 2);
+        switch (r)
+        {
+            case 0:
+                iEDelegate = BulletController.Instance.FireRound;
+                break;
+            case 1:
+                iEDelegate = BulletController.Instance.FireArc;
+                break;
+            default:
+                iEDelegate = null;
+                break;
+        }
+
 
     }
 
