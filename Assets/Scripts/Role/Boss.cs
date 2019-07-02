@@ -32,8 +32,8 @@ public class Boss : Role
     private void Awake()
     {
         //iEDelegate = BulletController.Instance.FireRandom;
-        iEDelegate = BulletController.Instance.FireRound;
-        //iEDelegate = BulletController.Instance.FireArc;
+       // iEDelegate = BulletController.Instance.FireRound;
+        iEDelegate = BulletController.Instance.FireArc;
 
     }
 
@@ -163,7 +163,7 @@ public class Boss : Role
 
     void CheckInMoveField()
     {
-        if (transform.position.x > -35 && transform.position.x < 35 && transform.position.y > -3 && transform.position.y < 8)
+        if (transform.position.x > -35 && transform.position.x < 35 && transform.position.y > 0 && transform.position.y < 8)
         {
             isEnter = true;
         }
@@ -178,10 +178,10 @@ public class Boss : Role
             temp = new Vector3(tempx, tempy, 0);
             moveDir = (temp - transform.position).normalized;
         }
-        if (isEnter == true && (transform.position.x <= -35 || transform.position.x >= 35 || transform.position.y <= -3 || transform.position.y >= 3))
+        if (isEnter == true && (transform.position.x <= -35 || transform.position.x >= 35 || transform.position.y <= 0 || transform.position.y >= 8))
         {
             tempx = Random.Range(-30, 30);
-            tempy = Random.Range(-3, 8);
+            tempy = Random.Range(0, 8);
             temp = new Vector3(tempx, tempy, 0);
             moveDir = (temp - transform.position).normalized;
         }
@@ -192,7 +192,7 @@ public class Boss : Role
         if (Mathf.Abs(transform.position.x - temp.x) <= 1 && Mathf.Abs(transform.position.y - temp.y) <= 1)
         {
             tempx = Random.Range(-35, 35);
-            tempy = Random.Range(-3, 8);
+            tempy = Random.Range(0, 8);
             temp = new Vector3(tempx, tempy, 0);
             moveDir = (temp - transform.position).normalized;
         }

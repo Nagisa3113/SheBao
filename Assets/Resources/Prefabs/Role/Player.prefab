@@ -298,8 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be206a0b4d6c47269ca4ade5dbeae41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wingman: {fileID: 0}
-  callWingman: 0
+  wingman: {fileID: 7714133704738929040, guid: 17f825a3500aa4e23b2a8854a06e2b65, type: 3}
 --- !u!1 &7969344292386721496
 GameObject:
   m_ObjectHideFlags: 0

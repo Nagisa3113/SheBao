@@ -853,7 +853,130 @@ MonoBehaviour:
   - Shohei Kameoka
   - Masami Ueda
   - SQARE ENIX CO, LTD.
+  names:
+  - Lancelot
+  - Achilles
+  - Parker
+  - Asclepius
+  - Ashwatthaman
+  - Arjuna
+  - Lakshmi
+  - 'Carigiri '
+  - Astraia
+  - Kingprotea
+  - Edelfelt
+  - Quetzalcoatl
+  - Bradamante
+  - Diarmuid
+  - Duibhne
+  - Jeanne d'Arc
+  - "Sc\xE1thach"
+  - Valkyrie
+  - Napoleon
+  - Sigurd
+  - Antonio
+  - Salieri
+  - Avicebron
+  - Atalante
+  - Anastasia
+  - Semiramis
+  - Altera
+  - Ereshkigal
+  - Abigail
+  - Williams
+  - Paraiso
+  - Inferno
+  - Parvati
+  - Ishtar
+  - Helena
+  - Blavatsky
+  - Altria
+  - Pendragon
+  - Nitocris
+  - Frankenstein
+  - Claudius
+  - Sherlock
+  - Holmes
+  - Passionlip
+  - Meltryllis
+  - Avenger
+  - Hassan
+  - Solomon
+  - Goetia
+  - Merlin
+  - Tiamat
+  - Gorgon
+  - Medusa
+  - Gilgamesh
+  - Enkidu
+  - Cleopatra
+  - Elisabeth
+  - "B\xE1thory"
+  - Illyasviel
+  - Einzbern
+  - Mordred
+  - Antoinette
+  - Leonardo
+  - Bedivere
+  - Serenity
+  - Gawain
+  - Tristan
+  - Ozymandias
+  - Irisviel
+  - Iskandar
+  - Geronimo
+  - Thomas
+  - Edison
+  - Chulainn
+  - Florence
+  - Nightingale
+  - Edmond
+  - Astolfo
+  - Beowulf
+  - Brynhild
+  - Cumhaill
+  - Charles
+  - Babbage
+  - Paracelsus
+  - Hohenheim
+  - Nursery
+  - Francis
+  - Hektor
+  - Bloodaxe
+  - DariusIII
+  - Caligula
+  - Asterios
+  - Spartacus
+  - Heracles
+  - Carmilla
+  - Phantom
+  - Sanson
+  - Stheno
+  - Wolfgang
+  - Amadeus
+  - Mozart
+  - Mephistopheles
+  - Shakespeare
+  - Christian
+  - Andersen
+  - Alexander
+  - Boudica
+  - Georgios
+  - Romulus
+  - Leonidas
+  - Euryale
+  - Chevalier
+  - Caesar
+  - Siegfried
+  - Kyrielight
+  - Galahad
+  - Kirchstein
+  - Sistria
+  - Jaeger
+  - Alright
   bossIndex: 0
+  enemylist: []
+  bosslist: []
 --- !u!4 &1474932715
 Transform:
   m_ObjectHideFlags: 0
@@ -1008,7 +1131,7 @@ PrefabInstance:
     - target: {fileID: 4781484713156677764, guid: b9169fc986f684ed5898ba83265ddb35,
         type: 3}
       propertyPath: hp
-      value: 1
+      value: 555
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9169fc986f684ed5898ba83265ddb35, type: 3}

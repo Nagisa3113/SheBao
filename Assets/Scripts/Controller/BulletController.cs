@@ -92,7 +92,7 @@ public class BulletController : SingletonMonoBehavior<BulletController>
         BulletType bulletType = BulletType.EnemyRed;
         Vector3 dir = Vector3.up;
         Vector3 pos;
-        Quaternion r1 = Quaternion.AngleAxis(15, Vector3.forward);
+        Quaternion r1 = Quaternion.AngleAxis(10, Vector3.forward);
         Quaternion rotateQuate = Quaternion.AngleAxis(60, Vector3.forward);
         for (float i = 0; i < 1; i += Time.fixedDeltaTime)
         {
@@ -119,7 +119,7 @@ public class BulletController : SingletonMonoBehavior<BulletController>
 
             dir = r1 * dir;
 
-            yield return new WaitForSeconds(arcCD);
+            yield return new WaitForSeconds(0.3f);
 
         }
     }

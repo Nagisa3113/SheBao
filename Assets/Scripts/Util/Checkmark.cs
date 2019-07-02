@@ -24,7 +24,7 @@ public class Checkmark : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int r = Random.Range(0, strings.Length + 1);
+        int r = Random.Range(0, strings.Length);
 
         text.text = strings[r];
     }

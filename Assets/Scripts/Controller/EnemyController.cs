@@ -13,6 +13,8 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
 
     public string[] enemyNames;
 
+    public string[] names;
+
     public int bossIndex = 0;
 
     public List<Enemy> enemylist;
@@ -99,8 +101,6 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
             }
 
         }
-
-
     }
 
     IEnumerator SpawnBoss(float startTime, int hp)
@@ -114,8 +114,11 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
         {
             yield return 0;
         }
-        CreateBoss(enemyNames[bossIndex++], hp);
-
+        CreateBoss(enemyNames[bossIndex], hp);
+        if(bossIndex<enemyNames.Length-1)
+        {
+            bossIndex++;
+        }
     }
 
 
@@ -123,7 +126,8 @@ public class EnemyController : SingletonMonoBehavior<EnemyController>
 
     public void CreateEnemy()
     {
-        string name = "Director";
+        int r = Random.Range(0, names.Length);
+        string name = names[r];
         Vector3 pos = new Vector3(Random.Range(-20, 20), Random.Range(15, 20), 0);
         GameObject e;
         e = Pool.Instance.RequestCacheGameObejct(enemy);

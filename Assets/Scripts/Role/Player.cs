@@ -128,7 +128,9 @@ public class Player : Role
             if (hp < 0)
             {
                 GameObject.Find("Background").GetComponent<Background>().NextScene(2);
-                Destroy(gameObject, 0.5f);
+                //Destroy(gameObject, 0.5f);
+                StopAllCoroutines();
+                GetComponent<Collider2D>().enabled = false;
             }
             else if (hp < 3)
             {
