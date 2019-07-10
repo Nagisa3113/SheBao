@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class AudioController : MonoBehaviour
 {
+    public AudioClip playerDieClip;
+    public AudioClip enemyDieClip;
 
-    public AudioClip hitClip;
-    public AudioClip dieClip;
-
-
-    public void PlayHit()
+    public void PlayPlayerDie(Transform transform)
     {
-        PlayAudioClip(hitClip);
+        AudioSource.PlayClipAtPoint(playerDieClip, transform.position);
     }
 
-    public void PlayDie()
+    public void PlayEnemyDie(Transform transform)
     {
-        PlayAudioClip(dieClip);
+        AudioSource.PlayClipAtPoint(enemyDieClip, transform.position);
     }
 
     void PlayAudioClip(AudioClip clip)

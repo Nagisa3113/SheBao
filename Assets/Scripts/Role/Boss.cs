@@ -107,7 +107,7 @@ public class Boss : Role
         {
             EnemyController.Instance.bosslist.Remove(this);
 
-            GameObject.Find("AudioController").GetComponent<AudioController>().PlayDie();
+            GameObject.Find("AudioController").GetComponent<AudioController>().PlayEnemyDie(this.transform);
             ParticleController.Instance.CreateEnemyExplosion(transform.position);
 
             Pool.Instance.ReturnCacheGameObejct(this.gameObject);
@@ -120,7 +120,7 @@ public class Boss : Role
     IEnumerator AudioPlay()
     {
         isAudio = true;
-        GameObject.Find("AudioController").GetComponent<AudioController>().PlayHit();
+        GetComponent<AudioSource>().Play();
         for (int i = 0; i < audioCD; i++)
         {
             yield return null;

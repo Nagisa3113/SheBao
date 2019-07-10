@@ -142,8 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 367231fc7c2d047a9b11c6205cb39e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitClip: {fileID: 8300000, guid: c87883218f15d4b8497fb0079c6a7d9e, type: 3}
-  dieClip: {fileID: 8300000, guid: 950c12b90c6b24a80b4446f7d89c3a31, type: 3}
+  playerDieClip: {fileID: 8300000, guid: 1a49d3c29fb1e41e88063776708e9633, type: 3}
+  enemyDieClip: {fileID: 8300000, guid: 950c12b90c6b24a80b4446f7d89c3a31, type: 3}
 --- !u!4 &50896247
 Transform:
   m_ObjectHideFlags: 0
@@ -152,7 +152,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 50896245}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.511533, y: -5.7785673, z: -0.5232804}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

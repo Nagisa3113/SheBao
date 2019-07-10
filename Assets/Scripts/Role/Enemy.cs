@@ -62,7 +62,7 @@ public class Enemy : Role
         {
             EnemyController.Instance.enemylist.Remove(this);
 
-            GameObject.Find("AudioController").GetComponent<AudioController>().PlayDie();
+            GameObject.Find("AudioController").GetComponent<AudioController>().PlayEnemyDie(this.transform);
             ParticleController.Instance.CreateEnemyhit(transform.position);
 
             Pool.Instance.ReturnCacheGameObejct(this.gameObject);

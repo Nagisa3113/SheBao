@@ -21,6 +21,7 @@ public class Player : Role
     public GameObject partMove;
     public GameObject partDie;
 
+
     private void Awake()
     {
         GetComponent<SpriteRenderer>().sprite = sprites[2];
@@ -130,7 +131,7 @@ public class Player : Role
         {
             hp--;
 
-            GameObject.Find("AudioHit").GetComponent<AudioSource>().Play();
+            GameObject.Find("AudioController").GetComponent<AudioController>().PlayPlayerDie(this.transform);
             partDie.gameObject.GetComponent<ParticleSystem>().Play();
             if (hp < 0)
             {
